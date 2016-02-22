@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
+    'splash.apps.SplashConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+
+# how to set installed apps variable
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -68,6 +71,18 @@ TEMPLATES = [
         },
     },
 ]
+
+
+# TEMPLATE_LOADERS = (
+# 'django.template.loaders.filesystem.Loader',
+# 'django.template.loaders.app_directories.Loader',
+# #django.template.loaders.eggs.Loader',
+# )
+
+# TEMPLATE_DIRS = (
+#     "/templates",
+# )
+
 
 WSGI_APPLICATION = 'social_todo.wsgi.application'
 

@@ -1,0 +1,50 @@
+<form method="POST" action = "maxlogout/">
+    {% csrf_token %}
+    <br> <input type="submit" value="Logout" class= 'btn' /><br>
+</form>
+
+
+{% if yourtasks %}
+    <ul>
+    {% for task in yourtasks %}
+        <b> Task: </b>
+        <li>Owner: {{ task.owner }}</li>
+        <li>Title: {{ task.title }}</li>
+        <li>Description: {{ task.description }}</li>
+        {% if task.complete %}
+            <li>The task is complete</li>
+            <form method="POST" action = "makecomplete/">
+                {% csrf_token %}
+                <input type = "hidden" name = "taskID" value = {{task.id}}> 
+                <br> <input type="submit" value="Mark Complete!" class= 'btn' /><br>
+            </form>
+        {% else %}
+            <li>The task is not yet done</li>
+            <form method="POST" action = "makecomplete/">
+
+                {% csrf_token %}
+                <input type = "hidden" name = "taskID" value = {{task.id}}> 
+                <br> <input type="submit" value="Mark Complete!" class= 'btn' /><br>
+            </form>
+        {% endif %}
+        {% if task.owner = id %}
+            <form method="POST" action = "delete/" info = {{task.id}}>
+                {% csrf_token %}
+                <input type = "hidden" name = "taskID" value = {{task.id}}> 
+               <br> <input type="submit" value="Delete the task!" class= 'btn' /><br>
+            </form>
+        {% endif %}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You have nothing to do.</p>
+{% endif %}
+
+
+
+<form method="POST" action = "addtask/">
+    {% csrf_token %}
+    {{ form }}
+   <br> <input type="submit" value="lets go" class= 'btn' /><br>
+</form>
+
