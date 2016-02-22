@@ -12,28 +12,29 @@
         <li>Title: {{ task.title }}</li>
         <li>Description: {{ task.description }}</li>
         {% if task.complete %}
-            <li>The task is complete</li>
+            <li>You are done with this task! Congratulations!</li>
             <form method="POST" action = "makecomplete/">
                 {% csrf_token %}
                 <input type = "hidden" name = "taskID" value = {{task.id}}> 
-                <br> <input type="submit" value="Mark Complete!" class= 'btn' /><br>
+                <input type="submit" value="Mark Incomplete :(" class= 'btn' />
             </form>
         {% else %}
-            <li>The task is not yet done</li>
+            <li>Please continue working on this task!</li>
             <form method="POST" action = "makecomplete/">
 
                 {% csrf_token %}
                 <input type = "hidden" name = "taskID" value = {{task.id}}> 
-                <br> <input type="submit" value="Mark Complete!" class= 'btn' /><br>
+                <input type="submit" value="Mark Complete!" class= 'btn' />
             </form>
         {% endif %}
         {% if task.owner = id %}
             <form method="POST" action = "delete/" info = {{task.id}}>
                 {% csrf_token %}
                 <input type = "hidden" name = "taskID" value = {{task.id}}> 
-               <br> <input type="submit" value="Delete the task!" class= 'btn' /><br>
+               <input type="submit" value="Delete the task!" class= 'btn' /><br>
             </form>
         {% endif %}
+        <hr color="#c7c34c" size="2" width="100%">
     {% endfor %}
     </ul>
 {% else %}
@@ -41,10 +42,10 @@
 {% endif %}
 
 
-
+<b>Add a task down here!</b>
 <form method="POST" action = "addtask/">
     {% csrf_token %}
     {{ form }}
-   <br> <input type="submit" value="lets go" class= 'btn' /><br>
+   <br> <input type="submit" value="Get to work!" class= 'btn' /><br>
 </form>
 

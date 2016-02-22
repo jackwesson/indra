@@ -8,13 +8,14 @@
 <!--    <input type="submit" value="OK">-->
 <!--</form>-->
 
-
+<b>Please Login Here:</b>
 <form method="post" action = "/login/">
     {% csrf_token %}
     {{ form }}
    <br> <input type="submit" value="login" class= 'btn' /><br>
 </form>
 
+<b>Please Register here:</b>
 <form method="post" action = "/register/">
     {% csrf_token %}
     {{ form2 }}

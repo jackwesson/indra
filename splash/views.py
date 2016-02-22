@@ -25,46 +25,28 @@ from django.http import HttpResponse
 
 
 def splash(request):
-    # if this is a POST request we need to process the form data
-    # if request.method == 'POST':
-    #     # create a form instance and populate it with data from the request:
-    #     form = NameForm(request.POST or None)
-    #     form2 = RegisterForm(request.POST or None)
-    #     # check whether it's valid:
-    #     if form.is_valid():
-    #         # process the data in form.cleaned_data as required
-    #         # ...
-    #         # redirect to a new URL:
-    #         email = form.cleaned_data['email']
-    #         password = form.cleaned_data['password']
-    #         new_splash, created = User.objects.get_or_create(username = email, email=email, password=password)
-    #         print new_splash, created
-    #         return HttpResponse('done!')
-
-    # if a GET (or any other method) we'll create a blank form
-    # else:
+    # This displays the template of register and login
     form = NameForm()
     form2 = RegisterForm()
 
     return render(request, 'name.html', {'form': form, 'form2': form2})
     
 def login(request):
-
+# This function allows the user to login
     user = request.POST.get('email', '')
     password = request.POST.get('password', '')
+    # authenticate is a django preset function
     user = authenticate(username=user, password=password)
     if user is not None:
         if user.is_active:
             django_login(request, user)
             request.session['mid'] = user.id
-            # return HttpResponse("You are now logged in")
+            # request.session['mid'] can be used to identify the user later
             return HttpResponseRedirect ('/tasks/')
     else:
-        # return render(request, "name.html", {'errors': "Your login was wrong"})
-        return HttpResponse("Sorry your login was wrong")
+       
+        return HttpResponse("Sorry your login information was wrong")
     
-    # template = get_template('djangosocialtwodo/splash.html')
-    # return HttpResponse(render(template, request))
 
 def register(request):
     if (request.POST.get('password', '') == request.POST.get('password_confirmation', '')):
@@ -73,8 +55,8 @@ def register(request):
         lname = request.POST.get('last', '')
         password = request.POST.get('password', '')
         
-        # if User.objects.filter(email).exists():
-        #     return HttpResponse("you are already in the system")
+        
+        # The user model is a preset django model
         try:
             user = User.objects.create_user(username=email, password=password, email=email, first_name=fname, last_name=lname)
             user.save()
@@ -87,7 +69,7 @@ def register(request):
                     return HttpResponseRedirect ('/tasks/')
             
         except:
-            return HttpResponse("It didn't work")
+            return HttpResponse("Sorry please try again with different inputs")
         
     else:
         # print request.POST.get('password', '')

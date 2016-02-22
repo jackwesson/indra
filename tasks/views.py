@@ -18,12 +18,6 @@ from models import Task
 from .forms import TaskForm
 
 def index(request):
-    # user = request.user.get_username()
-    # relevant = Task.objects.filter(Q(owner = user) | Q(collaborators = user))
-    # holder = relevant.objects.order_by('title')
-    # holder = Task.objects.all()
-    # output = ', '.join([p for p in holder])
-    # return HttpResponse(output)
     if request.method == 'POST':
         return HttpResponse('stuff happened')
     else:
@@ -33,9 +27,7 @@ def index(request):
         yourtasks = Task.objects.filter(Q(owner = userobj) | Q(collaborators = userobj))
         content = yourtasks
         
-    #     context = {
-    #     'latest_question_list': latest_question_list,
-    # }
+        # render can only take three inputs, if you want to pass multiple inputs you have to combine them into 1, (in this case context)
         
         context = {'yourtasks': yourtasks, 'form': form, 'id': userobj}
         return render(request, 'tasks.html', context)
@@ -48,37 +40,37 @@ def addtask(request):
     collaborator1 = request.POST.get('collaborator1', '')
     collaborator2 = request.POST.get('collaborator2', '')
     collaborator3 = request.POST.get('collaborator3', '')
-    # print 'did this work' + collaborator1
-    # Test code for getting logged in user
-    # http://stackoverflow.com/questions/19805129/get-user-object-using-userid-in-django
+
     uid = request.session['mid']
     userobj = User.objects.get(id=uid)
-    
-    # Moved save to bottom
+    # because collaborators is a multi entry field, you have to add collaborators after creating the new task
+    # I'm not sure why save goes above adding collaborators, but the code broke when the save was not above
     new_Task = Task(owner=userobj, title=title, description=description)
     new_Task.save()
     if collaborator1 != '':
-        # print collaborator1
+        
         collaboratored = User.objects.filter(email = collaborator1)
         coll = collaboratored[0]
         new_Task.collaborators.add(coll)
         
     if collaborator2 != '':
-        # print collaborator1
+        
         collaboratored = User.objects.filter(email = collaborator2)
         coll = collaboratored[0]
         new_Task.collaborators.add(coll)
         
     if collaborator3 != '':
-        # print collaborator1
+        
         collaboratored = User.objects.filter(email = collaborator3)
         coll = collaboratored[0]
         new_Task.collaborators.add(coll)
     # new_Task.save()
     return HttpResponseRedirect ('/tasks/')
+   
         
 def makecomplete(request):
     task = request.POST["taskID"]
+    # check the task id, if complete toggle false, if not complete toggle true
     taskide = Task.objects.get(id = task)
     if taskide.complete == False:
         taskide.complete = True
@@ -88,6 +80,7 @@ def makecomplete(request):
     return HttpResponseRedirect ('/tasks/')
 
 def delete(request):
+    # delete button would only have displayed if the current user is the owner, so no need to check here
     task = request.POST["taskID"]
     taskide = Task.objects.get(id = task)
     taskide.delete()
