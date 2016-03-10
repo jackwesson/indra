@@ -11,8 +11,12 @@ from  django.contrib.auth import authenticate, login as django_login, logout
 from .forms import RegisterForm
 from django.http import HttpResponse
 
+from models import UserProfile
 
 
+# superuser admin
+# admin@example.com
+# password11
 
 
 def landing(request):
@@ -25,7 +29,11 @@ def thanks(request):
     if email != "":
         u = User.objects.create_user(username=email, email=email)
         u.save()
+        # u = fulluser.objects.create_user(username=email, email=email)
+        # u.save()
+        print User.profile
         return render(request, 'thanks.html')
+        
     else:
         
         return render(request, 'index.html')

@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+AUTH_PROFILE_MODULE = "splash.UserProfile"
+
 INSTALLED_APPS = [
     'tasks.apps.TasksConfig',
     'splash.apps.SplashConfig',
