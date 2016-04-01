@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Indra</title>
+
+
+  </head>
+
+  <body>
+
+    <div class="body"></div>
+		<div class="grad"></div>
+		<div class="header">
+			<b><div>Welcome to your Indra homepage</div></b>
+		</div>
+		<br>
+		
+	<b><div> Add a profile picture</div></b>
+	<div class = "form">
+		<form method="POST" action = "addpic/">
+	    	{% csrf_token %}
+	    	{{ form1 }}
+	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
+		</form>
+	</form>
+	<b><div> Add some music</div></b>
+	<div class = "form">
+		<form method="POST" action = "addpic/">
+	    	{% csrf_token %}
+	    	{{ form2 }}
+	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
+		</form>
+	</form>
+	{{ pic }}
+  </body>
+</html>
+
+ <!--<div class="body"></div>-->
+	<!--	<div class="grad"></div>-->
+	<!--	<div class="header">-->
+	<!--		<b><div>Indra<span>Music</span></div></b>-->
+	<!--	</div>-->
+	<!--	<br>-->
+	<!--	<form name = "entry_form" action="/thanks/" method="post">-->
+	<!--	{% csrf_token %}-->
+	<!--	<div class="login">-->
+	<!--			<input type="text" placeholder="Username" name="username"><br>-->
+	<!--			<input type="text" placeholder="Email" name="email"><br>-->
+	<!--			<input type="password" placeholder="Password" name="password"><br>-->
+				<!--<input type="radio" name="usertype" value="venue" checked> Venue<br>-->
+  		<!--		<input type="radio" name="usertype" value="entertainer"> Entertainer<br>-->
+	<!--			<input onclick="enter()" type="button" value="Tell Me When It's Up">-->
+	<!--			<script>-->
+	<!--				function enter() {-->
+	<!--					document.entry_form.submit();-->
+	<!--				}-->
+	<!--			</script>-->
+				
+	<!--	</div></form>-->
+
+
+
+
+	<!--<form name = "picture_form" action="/addprofilepic/" method="post">-->
+	<!--	{% csrf_token %}-->
+	<!--	<div class="addprofilepic">-->
+	<!--			file = forms.FileField()-->
+				<!--<input type="radio" name="usertype" value="venue" checked> Venue<br>-->
+  		<!--		<input type="radio" name="usertype" value="entertainer"> Entertainer<br>-->
+	<!--			<input onclick="enter()" type="button" value="spice up the page">-->
+	<!--			<script>-->
+	<!--				function enter() {-->
+	<!--					document.entry_form.submit();-->
+	<!--				}-->
+	<!--			</script>-->
+				
+	<!--	</div></form>-->

@@ -18,6 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^', include('splash.urls')),
-    url(r'^tasks/', include('tasks.urls')),
+    url(r'^profilepage/', include('profilepage.urls')),
+    url(r'^displaypage/', include('displaypage.urls')),
     url(r'^admin/', admin.site.urls),
+    
 ]

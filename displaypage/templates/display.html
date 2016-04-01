@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+<body>
+{% if artists %}
+    <ul>
+    {% for artist in artists %}
+        <b> Artist: </b>
+        <li>Username: {{ artist.username }}</li>
+    {% endfor %}
+
+{% endif %}
+</body>
