@@ -21,8 +21,10 @@ from .forms import UploadPictureForm, UploadMusicForm
 from .models import profile, music
 
 def index(request):
-    if request.method == 'POST':
-        return HttpResponse('stuff happened')
+    if not request.user.is_authenticated():
+         
+         return render(request, 'profile.html')
+        
     else:
         uid = request.session['mid']
         # userobj = User.objects.get(id=uid)
