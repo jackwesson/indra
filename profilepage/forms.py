@@ -8,10 +8,6 @@ class UploadPictureForm(forms.ModelForm):
         fields = ['profilepicture']
         
             
-    
-    # title = forms.CharField(max_length=50)
-    # file = forms.FileField()
-
 class UploadMusicForm(forms.ModelForm):
     class Meta:
         model = music

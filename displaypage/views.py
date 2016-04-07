@@ -38,3 +38,8 @@ def index(request):
         
     
         # return render(request, 'tasks.html', {'query_results': yourtasks}, {'form': form})
+        
+def loadprofile(request):
+    if request.method == "POST":
+        pass
+        
