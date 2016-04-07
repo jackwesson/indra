@@ -20,7 +20,7 @@
 	<div class = "form">
 		<form method="POST" action = "addpic/">
 	    	{% csrf_token %}
-	    	{{ form1 }}
+			<input type="file" name="pic" id="pic" accept="image/gif, image/jpeg, .pdf, image/png"  />
 	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
 		</form>
 	</form>
@@ -28,15 +28,55 @@
 	<div class = "form">
 		<form method="POST" action = "addpmusic/">
 	    	{% csrf_token %}
-	    	{{ form2 }}
+			<input type="file" name="pic" id="pic" accept=".mp3"  />
 	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
 		</form>
 	</form>
-	<input type="file" accept=".xls,.xlsx" />
+	
 	{{ pic }}
   </body>
 </html>
 
+
+
+<!--<!DOCTYPE html>-->
+<!--<html >-->
+<!--  <head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Indra</title>-->
+
+
+<!--  </head>-->
+
+<!--  <body>-->
+
+<!--    <div class="body"></div>-->
+<!--		<div class="grad"></div>-->
+<!--		<div class="header">-->
+<!--			<b><div>Welcome to your Indra homepage</div></b>-->
+<!--		</div>-->
+<!--		<br>-->
+		
+<!--	<b><div> Add a profile picture</div></b>-->
+<!--	<div class = "form">-->
+<!--		<form method="POST" action = "addpic/">-->
+<!--	    	{% csrf_token %}-->
+<!--	    	{{ form1 }}-->
+<!--	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>-->
+<!--		</form>-->
+<!--	</form>-->
+<!--	<b><div> Add some music</div></b>-->
+<!--	<div class = "form">-->
+<!--		<form method="POST" action = "addpmusic/">-->
+<!--	    	{% csrf_token %}-->
+<!--	    	{{ form2 }}-->
+<!--	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>-->
+<!--		</form>-->
+<!--	</form>-->
+	
+<!--	{{ pic }}-->
+<!--  </body>-->
+<!--</html>-->
  <!--<div class="body"></div>-->
 	<!--	<div class="grad"></div>-->
 	<!--	<div class="header">-->
