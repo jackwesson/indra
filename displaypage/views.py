@@ -41,5 +41,8 @@ def index(request):
         
 def loadprofile(request):
     if request.method == "POST":
-        pass
+        usera = request.POST.get('artistprofile', False)
+        usera = User.objects.get(username = usera)
+        return HttpResponseRedirect ('/profilepage/', usera)
+        
         

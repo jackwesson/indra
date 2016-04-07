@@ -26,12 +26,13 @@
 	</form>
 	<b><div> Add some music</div></b>
 	<div class = "form">
-		<form method="POST" action = "addpic/">
+		<form method="POST" action = "addpmusic/">
 	    	{% csrf_token %}
 	    	{{ form2 }}
 	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
 		</form>
 	</form>
+	<input type="file" accept=".xls,.xlsx" />
 	{{ pic }}
   </body>
 </html>
