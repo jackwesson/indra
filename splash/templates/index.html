@@ -168,19 +168,44 @@ body{
 		<form name = "entry_form" action="/thanks/" method="post">
 		{% csrf_token %}
 		<div class="login">
-				<input type="text" placeholder="Username" name="username"><br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+				<input type="text" placeholder="Username" name="username"><br><br>
 				<input type="text" placeholder="Email" name="email"><br>
 				<input type="password" placeholder="Password" name="password"><br>
 				<!--<input type="radio" name="usertype" value="venue" checked> Venue<br>-->
   		<!--		<input type="radio" name="usertype" value="entertainer"> Entertainer<br>-->
-				<input onclick="enter()" type="button" value="Tell Me When It's Up">
+				<input onclick="enter()" type="button" value="Register">
 				<script>
 					function enter() {
 						document.entry_form.submit();
 					}
 				</script>
 				
-		</div></form>
+		</div>
+		<div class="login">
+			
+				<input type="text" placeholder="Username" name="username"><br>
+				<input type="password" placeholder="Password" name="password"><br>
+				<input onclick="enter()" type="button" value="Sign In">
+				<script>
+					function enter() {
+						document.entry_form.submit();
+					}
+				</script>
+				
+		</div>
+		</form>
     <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 

@@ -43,6 +43,6 @@ def loadprofile(request):
     if request.method == "POST":
         usera = request.POST.get('artistprofile', False)
         usera = User.objects.get(username = usera)
-        return HttpResponseRedirect ('/profilepage/', usera)
+        return render (request, '/profilepage/', usera)
         
-        
+        # django templates bulletins url

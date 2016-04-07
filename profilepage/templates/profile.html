@@ -20,15 +20,15 @@
 	<div class = "form">
 		<form method="POST" action = "addpic/">
 	    	{% csrf_token %}
-			<input type="file" name="pic" id="pic" accept="image/gif, image/jpeg, .pdf, image/png"  />
+			<input type="file" name="pic" id="pic" accept="image/*"  />
 	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
 		</form>
 	</form>
 	<b><div> Add some music</div></b>
 	<div class = "form">
-		<form method="POST" action = "addpmusic/">
+		<form method="POST" action = "addmusic/">
 	    	{% csrf_token %}
-			<input type="file" name="pic" id="pic" accept=".mp3"  />
+			<input type="file" name="music" id="music" accept="audio/*"  />
 	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
 		</form>
 	</form>
