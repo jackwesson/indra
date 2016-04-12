@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Indra</title>
-
+	
 
   </head>
 
@@ -16,6 +16,11 @@
 		</div>
 		<br>
 		
+		{% if blurb %}
+			{{blurb}}
+		{% endif %}
+		<br>
+		
 	<b><div> Add a profile picture</div></b>
 	<div class = "form">
 		<form method="POST" action = "addpic/">
@@ -24,6 +29,20 @@
 	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
 		</form>
 	</form>
+	</div>
+	
+	<b><div> Add a blurb</div></b>
+	<div class = "form">
+		<form method="POST" action = "addblurb/">
+	    	{% csrf_token %}
+	    	
+			{{form3}}
+	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
+		</form>
+	</form>
+	</div>
+	
+	
 	<b><div> Add some music</div></b>
 	<div class = "form">
 		<form method="POST" action = "addmusic/">

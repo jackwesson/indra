@@ -17,8 +17,8 @@ from django.contrib.sessions.models import Session
 
 from django.http import HttpResponse
 
-from .forms import UploadPictureForm, UploadMusicForm
-from .models import profile, music
+from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm
+from .models import profile, music, description
 
 def index(request):
     if request.method == 'Post':
@@ -36,22 +36,28 @@ def index(request):
         # render can only take three inputs, if you want to pass multiple inputs you have to combine them into 1, (in this case context)
         form1 = UploadPictureForm()
         form2 = UploadMusicForm()
+        form3 = UploadBlurbForm()
        
         userobj = User.objects.get(id=uid)
         
-        
+        passing = {'form1': form1, 'form2': form2, 'form3': form3}
         try:
-            
-            yourprofile = profile.objects.get(Q(owner = userobj))
-            profile = yourprofile
-            pic = profile.profilepicture
-            
-            passing = {'form1': form1, 'form2': form2, 'pic': pic}
-            
+            yourblurb = description.objects.get(Q(owner = userobj))
+            yourblurb = yourblurb.blurb
+            passing = {'form1': form1, 'form2': form2, 'form3': form3, 'blurb': yourblurb}
         except:
-            passing = {'form1': form1, 'form2': form2}
-       
+            pass
         
+        print (passing)
+        # yourprofile = profile.objects.get(Q(owner = userobj))
+        # profile = yourprofile
+        # pic = profile.profilepicture
+        
+        
+        # passing = {'form1': form1, 'form2': form2, 'form3': form3, 'blurb': yourblurb}
+            
+        # except:
+        #     passing = {'form1': form1, 'form2': form2, 'form3': form3}
        
         return render(request, 'profile.html', passing)
         # return render(request, 'tasks.html', {'query_results': yourtasks}, {'form': form})
@@ -68,7 +74,7 @@ def index(request):
 # http://stackoverflow.com/questions/7428245/model-form-save-get-the-saved-object this shows how to get your object from the saved form 
 
 def addpic(request):
-    print ('hladf')
+    
     if request.method == 'POST':
         
         form = UploadPictureForm(request.POST, request.FILES)
@@ -102,3 +108,26 @@ def addmusic(request):
     form = UploadMusicForm()
     # return HttpResponse('stuff happened')
     return render(request, 'profile.html', {'form': form})
+    
+    
+def addblurb(request):
+    if request.method == 'POST':
+        
+        blurb = request.POST.get('blurb')
+        uid = request.session['mid']
+        
+        userobj = User.objects.get(id=uid)
+        
+        try:
+            
+            desc = description.objects.get(owner=userobj)
+            desc.blurb = blurb
+            desc.save() 
+        except:
+            print ('wolo')
+            new_desc = description(owner = userobj, blurb = blurb)
+            new_desc.save() 
+    
+    
+    
+    return render(request, 'profile.html')

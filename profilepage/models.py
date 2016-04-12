@@ -14,8 +14,11 @@ class profile(models.Model):
     owner = models.ForeignKey(User, related_name="profile_picture")
     profilepicture = models.ImageField(upload_to='uploads/')
     
-    
-    
 class music(models.Model):
     owner = models.ForeignKey(User, related_name="example_music")
     examplemusic = models.FileField(upload_to='uploads/')
+    
+class description(models.Model):
+    owner = models.ForeignKey(User, related_name="band_name", primary_key = True)
+    blurb = models.CharField(max_length=100)
+    
