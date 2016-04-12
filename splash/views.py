@@ -14,19 +14,39 @@ from django.http import HttpResponse
 from models import UserProfile
 
 
-# superuser admin
-# admin@example.com
+# superuser admin1
+# admin1@example.com
 # password11
 
 
 def landing(request):
     
     return render(request, 'index.html')
+
+
+def login(request):
     
+    email = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    
+        # password = request.POST.get('password', '')
+        
+        
+        # The user model is a preset django model
+    user = authenticate(username=email, password=password)
+    if user is not None:
+        if user.is_active:
+            django_login(request, user)
+            request.session['mid'] = user.id
+            # request.session['mid'] can be used to identify the user later
+            return HttpResponseRedirect ('/profilepage/')
+    else:
+       
+        return HttpResponse("Sorry your login information was wrong")   
     
 def thanks(request):
     # this is the register function
-    
+    print ('please dont print this')
     email = request.POST['email']
     username = request.POST['username']
     password = request.POST['password']
@@ -42,23 +62,3 @@ def thanks(request):
         return render(request, 'index.html')
 
     
-
-def login(request):
-    # if (request.POST.get('password', '') == request.POST.get('password_confirmation', '')):
-    email = request.POST.get('email', '')
-    password = request.POST.get('password', '')
-    print ('check')
-        # password = request.POST.get('password', '')
-        
-        
-        # The user model is a preset django model
-    user = authenticate(username=email, password=password)
-    if user is not None:
-        if user.is_active:
-            django_login(request, user)
-            request.session['mid'] = user.id
-            # request.session['mid'] can be used to identify the user later
-            return HttpResponseRedirect ('/profilepage/')
-    else:
-       
-        return HttpResponse("Sorry your login information was wrong")

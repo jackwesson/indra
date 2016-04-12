@@ -239,38 +239,43 @@ body{
 			<b><div>Indra<span>Music</span></div></b>
 		</div>
 		<br>
-		<form name = "entry_form" action="/thanks/" method="post">
-		{% csrf_token %}
-		<div class="register">
-				<input type="text" placeholder="Username" name="username"><br><br>
-				<input type="text" placeholder="Email" name="email"><br>
-				<input type="password" placeholder="Password" name="password"><br>
-				<!--<input type="radio" name="usertype" value="venue" checked> Venue<br>-->
-  		<!--		<input type="radio" name="usertype" value="entertainer"> Entertainer<br>-->
-				<input onclick="enter()" type="button" value="Register">
-				<script>
-					function enter() {
-						document.entry_form.submit();
-					}
-				</script>
-				
-		</div>
-		</form>
+		
 		<form name = "login_form" action="/login/" method="post">
 		{% csrf_token %}
 		<div class="login">
 			
 				<input type="text" placeholder="Username" name="username"><br>
 				<input type="password" placeholder="Password" name="password"><br>
-				<input onclick="enter()" type="button" value="Sign In">
+				<input type="submit" value="login" class= 'btn' /><br>
+				<!--<input onclick="enter()" type="button" value="Log In">-->
+				<!--<script>-->
+				<!--	function enter() {-->
+				<!--		document.login_form.submit();-->
+				<!--	}-->
+				<!--</script>-->
+				
+		</div>
+		</form>
+		
+		
+		<form name = "register_form" action="/thanks/" method="post">
+		{% csrf_token %}
+		<div class="register">
+				<input type="text" placeholder="Username" name="username"><br><br>
+				<input type="text" placeholder="Email" name="email"><br>
+				<input type="password" placeholder="Password" name="password"><br>
+				<input type="radio" name="usertype" value="venue" checked> Venue<br>
+  				<input type="radio" name="usertype" value="entertainer"> Entertainer<br>
+				<input onclick="enter()" type="button" value="Register">
 				<script>
 					function enter() {
-						document.entry_form.submit();
+						document.register_form.submit();
 					}
 				</script>
 				
 		</div>
 		</form>
+		
 		<div class = "logo">
 			<img src="trial.png" alt="Logo" style="width:304px;height:228px;">
 		</div>
