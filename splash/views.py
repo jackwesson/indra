@@ -11,6 +11,7 @@ from  django.contrib.auth import authenticate, login as django_login, logout
 from .forms import RegisterForm
 from django.http import HttpResponse
 from profilepage.views import index
+from splash.forms import RegisterForm, LoginForm
 
 from models import UserProfile
 
@@ -45,21 +46,21 @@ def login(request):
        
         return HttpResponse("Sorry your login information was wrong")   
     
-def thanks(request):
-    # this is the register function
-    print ('please dont print this')
-    email = request.POST['email']
-    username = request.POST['username']
-    password = request.POST['password']
-    if email != "" and username != "" and password != "":
-        u = User.objects.create_user(username=username, email=email, password=password)
-        u.save()
-        
-        request.session['mid'] = u.id
-        return HttpResponseRedirect ('/profilepage/')
-        
-    else:
-        
-        return render(request, 'index.html')
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        if len(username) < 50:
+            print("fuck me")
+            return render(request, 'index.html', {'login_form': LoginForm, 'register_form': RegisterForm, 'errors': 'Name is too long'})
+        if email != "" and username != "" and password != "":       
+            u = User.objects.create_user(username=username, email=email, password=password)
+            u.save()
+            request.session['mid'] = u.id
+            return HttpResponseRedirect ('/profilepage/')
+        else:
+            
+            return render(request, 'index.html')
 
     
