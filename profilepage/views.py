@@ -24,6 +24,7 @@ def index(request, usera = ''):
     if usera != '':
          user = usera
          print ('you made it here')
+         passing = {}
          try:
             yourblurb = description.objects.get(Q(owner = userobj))
             yourblurb = yourblurb.blurb
@@ -33,8 +34,9 @@ def index(request, usera = ''):
         
          except:
             pass
-        
-         return render(request, 'viewprofile.html', usera)
+         print ('did it get here')
+         
+         return render(request, 'viewprofile.html', passing)
         
     else:
         uid = request.session['mid']
