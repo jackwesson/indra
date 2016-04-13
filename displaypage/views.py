@@ -17,6 +17,7 @@ from django.template.loader import get_template
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 
+from profilepage.views import index as index2
 
 from django.http import HttpResponse
 
@@ -43,6 +44,7 @@ def loadprofile(request):
     if request.method == "POST":
         usera = request.POST.get('artistprofile', False)
         usera = User.objects.get(username = usera)
-        return render (request, '/profilepage/', usera)
+        print (usera)
+        return index2(request, usera)
         
         # django templates bulletins url

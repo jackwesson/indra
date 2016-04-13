@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from  django.contrib.auth import authenticate, login as django_login, logout
 from .forms import RegisterForm
 from django.http import HttpResponse
+from profilepage.views import index
 
 from models import UserProfile
 

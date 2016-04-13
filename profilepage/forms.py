@@ -2,10 +2,8 @@ from django import forms
 from .models import profile, music, description
 from django.forms import ModelForm
 
-class UploadPictureForm(forms.ModelForm):
-    class Meta:
-        model = profile
-        fields = ['profilepicture']
+class UploadPictureForm(forms.Form):
+   pic = forms.ImageField()
         
             
 class UploadMusicForm(forms.ModelForm):

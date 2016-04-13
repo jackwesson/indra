@@ -20,10 +20,21 @@ from django.http import HttpResponse
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm
 from .models import profile, music, description
 
-def index(request):
-    if request.method == 'Post':
-         usera = usera
-         return render(request, 'profile.html', usera)
+def index(request, usera = ''):
+    if usera != '':
+         user = usera
+         print ('you made it here')
+         try:
+            yourblurb = description.objects.get(Q(owner = userobj))
+            yourblurb = yourblurb.blurb
+            yourpic = profile.objects.get(Q(owner = userobj))
+            yourpic = yourpic.profilepicture
+            passing = {'blurb': yourblurb, 'pic': yourpic}
+        
+         except:
+            pass
+        
+         return render(request, 'viewprofile.html', usera)
         
     else:
         uid = request.session['mid']
@@ -44,7 +55,9 @@ def index(request):
         try:
             yourblurb = description.objects.get(Q(owner = userobj))
             yourblurb = yourblurb.blurb
-            passing = {'form1': form1, 'form2': form2, 'form3': form3, 'blurb': yourblurb}
+            yourpic = profile.objects.get(Q(owner = userobj))
+            yourpic = yourpic.profilepicture
+            passing = {'form1': form1, 'form2': form2, 'form3': form3, 'blurb': yourblurb, 'pic': yourpic}
         except:
             pass
         
@@ -77,16 +90,30 @@ def addpic(request):
     
     if request.method == 'POST':
         
-        form = UploadPictureForm(request.POST, request.FILES)
-        uid = request.session['mid']
+        # form = UploadPictureForm(request.POST, request.FILES)
+        pic = request.POST.get('pic', '')
         
-        if form.is_valid():
-            print ('did this work')
-            # file is saved
-            m = form.save()
-            m.user = User.objects.get(id=uid)
-            m.save()
-            print ('sdlkfjasldkfjsal;jdf')
+        uid = request.session['mid']
+        userobj = User.objects.get(id=uid)
+        
+        try:
+            
+            prof = profile.objects.get(owner=userobj)
+            prof.profilepicture = pic
+            prof.save() 
+        except:
+            
+            new_prof = profile(owner = userobj, profilepicture = pic)
+            new_prof.save() 
+            print ('yay')
+        
+        # if form.is_valid():
+        #     print ('did this work')
+        #     # file is saved
+        #     m = form.save()
+        #     m.user = User.objects.get(id=uid)
+        #     m.save()
+        #     print ('sdlkfjasldkfjsal;jdf')
             
     
         form = UploadPictureForm()
