@@ -22,21 +22,36 @@ from .models import profile, music, description
 
 def index(request, usera = ''):
     if usera != '':
-         user = usera
-         print ('you made it here')
-         passing = {}
-         try:
-            yourblurb = description.objects.get(Q(owner = userobj))
-            yourblurb = yourblurb.blurb
-            yourpic = profile.objects.get(Q(owner = userobj))
-            yourpic = yourpic.profilepicture
-            passing = {'blurb': yourblurb, 'pic': yourpic}
-        
-         except:
+        user = usera
+        blurb = False
+        pic = False
+        passing = {}
+        try: 
+            yourblurb = description.objects.get(Q(owner = usera))
+            blurb = True
+        except: 
             pass
-         print ('did it get here')
+        
+        try:
+            yourpic = profile.objects.get(Q(owner = usera))
+            pic = True
+        except:
+            pass
+        
+        if blurb == True:
+            yourblurb = yourblurb.blurb
+            passing['blurb'] =  yourblurb
+        
+        if pic == True:
+            yourpic = yourpic.profilepicture
+            passing['pic'] =  yourpic
+            
+        
+    
          
-         return render(request, 'viewprofile.html', passing)
+        print ('did it get here')
+         
+        return render(request, 'viewprofile.html', passing)
         
     else:
         uid = request.session['mid']
@@ -54,14 +69,30 @@ def index(request, usera = ''):
         userobj = User.objects.get(id=uid)
         
         passing = {'form1': form1, 'form2': form2, 'form3': form3}
-        try:
+        
+        blurb = False
+        pic = False 
+        try: 
+            print ('check this')
             yourblurb = description.objects.get(Q(owner = userobj))
-            yourblurb = yourblurb.blurb
+            blurb = True
+            print ('this should work')
+        except: 
+            pass
+        
+        try:
             yourpic = profile.objects.get(Q(owner = userobj))
-            yourpic = yourpic.profilepicture
-            passing = {'form1': form1, 'form2': form2, 'form3': form3, 'blurb': yourblurb, 'pic': yourpic}
+            pic = True
         except:
             pass
+        
+        if blurb == True:
+            yourblurb = yourblurb.blurb
+            passing['blurb'] =  yourblurb
+        
+        if pic == True:
+            yourpic = yourpic.profilepicture
+            passing['pic'] =  yourpic
         
         print (passing)
         # yourprofile = profile.objects.get(Q(owner = userobj))
@@ -141,21 +172,23 @@ def addmusic(request):
     
 def addblurb(request):
     if request.method == 'POST':
-        
+        print ('made it this far')
         blurb = request.POST.get('blurb')
         uid = request.session['mid']
         
         userobj = User.objects.get(id=uid)
         
         try:
-            
+            print ('no lo')
             desc = description.objects.get(owner=userobj)
             desc.blurb = blurb
             desc.save() 
+            print ('true lo')
         except:
             print ('wolo')
             new_desc = description(owner = userobj, blurb = blurb)
             new_desc.save() 
+            print ('i cant believe it')
     
     
     

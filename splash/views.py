@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from  django.contrib.auth import authenticate, login as django_login, logout
 from .forms import RegisterForm
 from django.http import HttpResponse
-from profilepage.views import index
+
 
 from models import UserProfile
 
@@ -47,7 +47,7 @@ def login(request):
     
 def thanks(request):
     # this is the register function
-    print ('please dont print this')
+    
     email = request.POST['email']
     username = request.POST['username']
     password = request.POST['password']
@@ -55,6 +55,11 @@ def thanks(request):
         u = User.objects.create_user(username=username, email=email, password=password)
         u.save()
         
+        if request.POST['usertype'] == 'venue':
+            u.first_name = 'venue'
+        else:
+            u.first_name = 'entertainer'
+        u.save() 
         request.session['mid'] = u.id
         return HttpResponseRedirect ('/profilepage/')
         
