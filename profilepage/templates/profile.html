@@ -258,7 +258,7 @@ body{
 .mudkip{
 	position: absolute;
 	top: calc(45%);
-	right: calc(50% + 25px);
+	right: calc(25% + 25px);
 	height: 150px;
 	width: 350px;
 	padding: 10px;
@@ -271,6 +271,14 @@ body{
 	z-index: 2;
 }
 
+.profilepicture{
+	position: absolute;
+	top: calc(15% + 20px);
+	left: calc(4% + 10px);
+	width: 130px;
+	height: 200px;
+	z-index: 2;
+}
 
 ::-webkit-input-placeholder{
    color: rgba(255,255,255,0.6);
@@ -290,9 +298,12 @@ body{
 			<b><div>Your Indra Homepage</div></b>
 		</div>
 		<br>
+		<div class = "profilepicture">
 		{% if pic %}
-			<img src=  {{pic }} alt="prof" style="width:304px;height:228px;">
-		{% endif %}
+			<img src= {{MEDIA_URL}}{{pic}} alt="prof" style="width:304px;height:228px;">
+		{% endif %}	
+		</div>
+		
 		
 		 <div class= "mudkip">
 		{% if blurb %}
@@ -315,7 +326,7 @@ body{
 		</div>
 		</form>
 			<br>
-		<form name = "profile_upload" action="/profilepage/addpic/" method="post">
+		<form name = "profile_upload" action="/profilepage/addpic/" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 		<div class="propic">
 						<input type="file" name="pic" id="pic" accept="image/*"  />

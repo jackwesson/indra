@@ -43,8 +43,8 @@ def index(request):
 def loadprofile(request):
     if request.method == "POST":
         usera = request.POST.get('artistprofile', False)
-        print (usera)
-        usera = User.objects.get(username = usera)
+        
+        usera = User.objects.get(id = usera)
         print (usera)
         return index2(request, usera)
         

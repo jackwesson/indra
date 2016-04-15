@@ -1,5 +1,5 @@
 from django import forms
-from .models import profile, music, description
+from .models import Profile, music, description
 from django.forms import ModelForm
 
 class UploadPictureForm(forms.Form):
