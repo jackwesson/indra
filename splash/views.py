@@ -51,6 +51,11 @@ def thanks(request):
     email = request.POST['email']
     username = request.POST['username']
     password = request.POST['password']
+    
+    if User.objects.get(username = username):
+        return HttpResponse('This username already exists')
+    # except:
+    #     pass
     if email != "" and username != "" and password != "":
         u = User.objects.create_user(username=username, email=email, password=password)
         u.save()
