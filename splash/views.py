@@ -12,6 +12,8 @@ from .forms import RegisterForm
 from django.http import HttpResponse
 from profilepage.views import index
 from splash.forms import RegisterForm, LoginForm
+from django.core.urlresolvers import reverse
+
 
 from models import UserProfile
 
@@ -51,16 +53,22 @@ def register(request):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        if len(username) < 50:
-            print("fuck me")
-            return render(request, 'index.html', {'login_form': LoginForm, 'register_form': RegisterForm, 'errors': 'Name is too long'})
-        if email != "" and username != "" and password != "":       
+        if len(username) > 50:
+            return render(request, 'index.html', {'errors': 'Name is too long'})
+        if len(username) == 0:
+            return render(request, 'index.html', {'errors': 'Please enter a Username'})
+        if len(email) > 50:
+            return render(request, 'index.html', {'errors': 'E-mail is too long'})
+        if len(password) > 50:
+            return render(request, 'index.html', {'errors': 'Password is too long'})
+        if len(password) == 0:
+            return render(request, 'index.html', {'errors': 'Please enter a Password'})
+        if '@' in email:
             u = User.objects.create_user(username=username, email=email, password=password)
             u.save()
             request.session['mid'] = u.id
             return HttpResponseRedirect ('/profilepage/')
         else:
-            
-            return render(request, 'index.html')
+            return render(request, 'index.html', {'errors': 'Enter a valid E-mail Address'})
 
     

@@ -260,6 +260,13 @@ body{
 		<form name = "register_form" action="/register/" method="post">
 		{% csrf_token %}
 		<div class="register">
+			
+		{% if errors %}
+		<div style="color:red" class="validation-error">
+    		{{errors}}
+		</div>
+		{% endif %}
+		
 				<input type="text" placeholder="Username" name="username"><br><br>
 				<input type="text" placeholder="Email" name="email"><br>
 				<input type="password" placeholder="Password" name="password"><br>
@@ -275,11 +282,7 @@ body{
 		</div>
 		</form>
 		
-		{% if errors %}
-		<div style="color:red" class="validation-error">
-    		{{errors}}
-		</div>
-		{% endif %}
+
 		
 		<div class = "logo">
 			<img src="trial.png" alt="Logo" style="width:304px;height:228px;">
