@@ -10,14 +10,9 @@ from django.contrib.auth.models import User
 from  django.contrib.auth import authenticate, login as django_login, logout
 from .forms import RegisterForm
 from django.http import HttpResponse
-<<<<<<< HEAD
 from profilepage.views import index
 from splash.forms import RegisterForm, LoginForm
 from django.core.urlresolvers import reverse
-=======
->>>>>>> d859ed33bd71c686b56e069fe22b10a0c4d684c7
-
-
 from models import UserProfile
 
 
@@ -50,8 +45,7 @@ def login(request):
     else:
        
         return HttpResponse("Sorry your login information was wrong")   
-    
-<<<<<<< HEAD
+        
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -70,37 +64,12 @@ def register(request):
         if '@' in email:
             u = User.objects.create_user(username=username, email=email, password=password)
             u.save()
+            if request.POST['usertype'] == 'venue':
+                u.first_name = 'venue'
+            else:
+                u.first_name = 'entertainer'
+            u.save() 
             request.session['mid'] = u.id
             return HttpResponseRedirect ('/profilepage/')
         else:
             return render(request, 'index.html', {'errors': 'Enter a valid E-mail Address'})
-=======
-def thanks(request):
-    # this is the register function
-    
-    email = request.POST['email']
-    username = request.POST['username']
-    password = request.POST['password']
-    
-    if User.objects.get(username = username):
-        return HttpResponse('This username already exists')
-    # except:
-    #     pass
-    if email != "" and username != "" and password != "":
-        u = User.objects.create_user(username=username, email=email, password=password)
-        u.save()
-        
-        if request.POST['usertype'] == 'venue':
-            u.first_name = 'venue'
-        else:
-            u.first_name = 'entertainer'
-        u.save() 
-        request.session['mid'] = u.id
-        return HttpResponseRedirect ('/profilepage/')
-        
-    else:
-        
-        return render(request, 'index.html')
->>>>>>> d859ed33bd71c686b56e069fe22b10a0c4d684c7
-
-    
