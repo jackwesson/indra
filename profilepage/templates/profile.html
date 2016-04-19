@@ -51,7 +51,7 @@ body{
 .header{
 	position: absolute;
 	top: calc(0% + 20px);
-	left: calc(0% + 25px);
+	left: calc(0% + 70px);
 	z-index: 2;
 }
 
@@ -70,7 +70,7 @@ body{
 .entry{
 	position: absolute;
 	top: calc(25%);
-	left: calc(0% + 25px);
+	right: calc(0% + 25px);
 	height: 150px;
 	width: 350px;
 	padding: 10px;
@@ -118,6 +118,20 @@ body{
 	padding: 6px;
 	margin-top: 10px;
 }
+.entry input[type=submit]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
 
 .entry input[type=button]:hover{
 	opacity: 0.8;
@@ -140,6 +154,131 @@ body{
 .entry input[type=button]:focus{
 	outline: none;
 }
+.propic{
+	position: absolute;
+	top: calc(45%);
+	right: calc(0% + 25px);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.propic input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.propic input[type=password]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.propic input[type=button]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+.propic input[type=submit]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.propic input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.propic input[type=button]:active{
+	opacity: 0.6;
+}
+
+.propic input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.propic input[type=file]:active{
+	opacity: 0.6;
+}
+.propic input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.propic input[type=file]:active{
+	opacity: 0.6;
+}
+.propic input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.propic input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.propic input[type=button]:focus{
+	outline: none;
+}
+.mudkip{
+	position: absolute;
+	top: calc(54%);
+	left: calc(0% + 45px);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+.icon{
+	position: absolute;
+	top: calc(0% + 20px);
+	left: calc(0% + 10px);
+	z-index: 2;
+}
+
+.profilepicture{
+	position: absolute;
+	top: calc(15% + 20px);
+	left: calc(4% + 10px);
+	width: 17px;
+	height: 22px;
+	z-index: 2;
+}
 
 ::-webkit-input-placeholder{
    color: rgba(255,255,255,0.6);
@@ -159,61 +298,44 @@ body{
 			<b><div>Your Indra Homepage</div></b>
 		</div>
 		<br>
-		{% if pic %}
-			<img src=  {{pic }} alt="prof" style="width:304px;height:228px;">
-		{% endif %}
+		<div class = "profilepicture">
+			{% if pic %}
+				<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">
+			{% endif %}	
+		</div>
 		
+		
+		 <div class= "mudkip">
 		{% if blurb %}
 			{{blurb}}
 		{% endif %}
-		
+		</div>
 		<br>
-		<form name = "profile_blurb" action="/addblurb/" method="post">
+		
+		<form name = "profile_blurb" action="/profilepage/addblurb/" method="post">
 		{% csrf_token %}
 		<div class="entry">
-				<input type="text" placeholder="Blurb" name="username"><br><br>
-				<input onclick="enter()" type="button" value="Add Blurb">
+				<input type="text" placeholder="Blurb" name="blurb"><br><br>
+				<input onclick="profile()" type="button" value="Add Blurb">
 				<script>
-					function enter() {
-						document.register_form.submit();
+					function profile() {
+						document.profile_blurb.submit();
 					}
 				</script>
 				
 		</div>
 		</form>
-		
-	<b><div> Add a profile picture</div></b>
-	<div class = "form">
-		<form method="POST" action = "addpic/">
-	    	{% csrf_token %}
-			<input type="file" name="pic" id="pic" accept="image/*"  />
-	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
+			<br>
+		<form name = "profile_upload" action="/profilepage/addpic/" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="propic">
+						<input type="file" name="pic" id="pic" accept="image/*"  />
+	   					<br> <input type="submit" value="Upload!" class= 'btn' /><br>
+		</div>
 		</form>
-	</form>
-	</div>
-	
-	<b><div> Add a blurb</div></b>
-	<div class = "form">
-		<form method="POST" action = "addblurb/">
-	    	{% csrf_token %}
-	    	
-			{{form3}}
-	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
-		</form>
-	</form>
-	</div>
-	
-	
-	<b><div> Add some music</div></b>
-	<div class = "entry">
-		<form method="POST" action = "addmusic/">
-	    	{% csrf_token %}
-			<input type="file" name="music" id="music" accept="audio/*"  />
-	   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>
-		</form>
-	</form>
-	
-	{{ pic }}
+		<a href="https://www.google.com/webhp?hl=en" class = "icon">
+ 			<img src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glowing-purple-neon-icons-alphanumeric/112718-glowing-purple-neon-icon-alphanumeric-vertical-line.png" alt="HTML tutorial" style="width:92px;height:52px;border:0;">
+		</a>
   </body>
 </html>
 
@@ -297,3 +419,15 @@ body{
 	<!--			</script>-->
 				
 	<!--	</div></form>-->
+	
+	
+	
+	<!--<b><div> Add a blurb</div></b>-->
+	<!--<div class = "form">-->
+	<!--	<form method="POST" action = "addblurb/">-->
+	<!--    	{% csrf_token %}-->
+	    	
+	<!--		{{form3}}-->
+	<!--   	<br> <input type="submit" value="Upload!" class= 'btn' /><br>-->
+	<!--	</form>-->
+	<!--</form>-->

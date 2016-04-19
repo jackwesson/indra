@@ -4,11 +4,16 @@
 {% if artists %}
     <ul>
     {% for artist in artists %}
-        <b> Artist: </b>
+        {% if artist.first_name == "entertainer" %}
+            <b> Artist: </b>
+        {% else %} 
+            <b> Venue: </b>
+        {% endif %}
+        
         <li>Username: {{ artist.username }}</li>
         <form method="POST" action = "loadprofile/">
             {% csrf_token %}
-            <input type = "hidden" name = "artistprofile" value = {{artist.username}}> 
+            <input type = "hidden" name = "artistprofile" value = {{artist.userid}}> 
             <input type="submit" value="Load their page!" class= 'btn' />
         </form>
     {% endfor %}

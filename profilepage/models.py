@@ -10,9 +10,9 @@ from django.conf import settings
 
 
 # Create your models here.
-class profile(models.Model):
+class Profile(models.Model):
     owner = models.ForeignKey(User, related_name="profile_picture")
-    profilepicture = models.ImageField(upload_to='uploads/')
+    profilepicture = models.ImageField(upload_to="propics")
     
 class music(models.Model):
     owner = models.ForeignKey(User, related_name="example_music")
