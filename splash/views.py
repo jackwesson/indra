@@ -36,7 +36,6 @@ def login(request):
         
         # The user model is a preset django model
     user = authenticate(username=email, password=password)
-    errorType = True
     if user is not None:
         if user.is_active:
             django_login(request, user)
@@ -44,14 +43,13 @@ def login(request):
             # request.session['mid'] can be used to identify the user later
             return HttpResponseRedirect ('/profilepage/')
     else:
-        return render(request, 'index.html', {'errors': 'Incorrect Login Information'})  
+        return render(request, 'index.html', {'errors': 'Invalid Login Information'})  
         
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        errorType = False 
         if len(username) > 50:
             return render(request, 'index.html', {'errors': 'Name is too long'})
         if len(username) == 0:
@@ -62,6 +60,8 @@ def register(request):
             return render(request, 'index.html', {'errors': 'Password is too long'})
         if len(password) == 0:
             return render(request, 'index.html', {'errors': 'Please enter a Password'})
+        if User.objects.filter(email=email).exists():
+            return render(request, 'index.html', {'errors': 'E-mail already in use'})
         if '@' in email:
             u = User.objects.create_user(username=username, email=email, password=password)
             u.save()
