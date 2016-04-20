@@ -19,7 +19,6 @@ from django.http import HttpResponse
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm
 from .models import Profile, music, description
 
-
 def index(request, person = ''):
     if person == '':
         user = request.user
@@ -186,9 +185,5 @@ def maxlogout(request):
     pooplogout(request)
     return HttpResponseRedirect ('/')
     
-
-def loaddisplay(request):
-    from displaypage.views import index as index2
-    if request.method == "POST":
-        return index2(request)
+    
 
