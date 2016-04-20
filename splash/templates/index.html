@@ -240,13 +240,11 @@ body{
 		</div>
 		<br>
 		
-	
-		
 		<form name = "login_form" action="/login/" method="post">
 		{% csrf_token %}
 		<div class="login">
 		
-			{% if errors %}
+			{% if errors == 'Incorrect Login Information' %}
 			<div style="color:red" class="validation-error">
 	    		{{errors}}
 			</div>
@@ -268,6 +266,13 @@ body{
 		<form name = "register_form" action="/register/" method="post">
 		{% csrf_token %}
 		<div class="register">
+			
+			{% if errors != 'Incorrect Login Information' %}
+			<div style="color:red" class="validation-error">
+	    		{{errors}}
+			</div>
+			{% endif %}
+			
 				<input type="text" placeholder="Username" name="username"><br><br>
 				<input type="text" placeholder="Email" name="email"><br>
 				<input type="password" placeholder="Password" name="password"><br>
