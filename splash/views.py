@@ -60,6 +60,8 @@ def register(request):
             return render(request, 'index.html', {'errors': 'Password is too long'})
         if len(password) == 0:
             return render(request, 'index.html', {'errors': 'Please enter a Password'})
+        if User.objects.filter(email=email).exists():
+            return render(request, 'index.html', {'errors': 'E-mail already in use'})
         if '@' in email:
             u = User.objects.create_user(username=username, email=email, password=password)
             u.save()
