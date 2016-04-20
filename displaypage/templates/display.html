@@ -1,7 +1,266 @@
+
+
 <!DOCTYPE html>
+<head>
+    <link rel="style" type="text/css" href="style.css">
+</head>
+<style>
+@import "compass/css3";
+
+div {
+  width: 200px;
+  margin: 30px;
+}
+
+h2 {
+  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: block;
+  width: 200px;
+}
+
+li a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
+}
+
+.logout{
+	position: absolute;
+	top: calc(0%);
+	right: calc(0%);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.logout input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.logout input[type=password]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.logout input[type=button]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+.logout input[type=submit]{
+	width: 90px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.logout input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.logout input[type=button]:active{
+	opacity: 0.6;
+}
+
+.logout input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.logout input[type=file]:active{
+	opacity: 0.6;
+}
+.logout input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.logout input[type=file]:active{
+	opacity: 0.6;
+}
+.logout input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.logout input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.logout input[type=button]:focus{
+	outline: none;
+}
+
+.loadisplay{
+	position: absolute;
+	top: calc(0%);
+	right: calc(0%);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.loadisplay input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.loadisplay input[type=password]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.loadisplay input[type=button]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+.loadisplay input[type=submit]{
+	width: 90px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.loadisplay input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.loadisplay input[type=button]:active{
+	opacity: 0.6;
+}
+
+.loadisplay input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.loadisplay input[type=file]:active{
+	opacity: 0.6;
+}
+.loadisplay input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.loadisplay input[type=file]:active{
+	opacity: 0.6;
+}
+.loadisplay input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.loadisplay input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.loadisplay input[type=button]:focus{
+	outline: none;
+}
+
+</style>
+
 
 <body>
 {% if artists %}
+    <h2>Here is everyone participating! </h2>
     <ul>
     {% for artist in artists %}
         {% if artist.first_name == "entertainer" %}
@@ -14,11 +273,19 @@
         <form method="POST" action = "loadprofile/">
             {% csrf_token %}
             <input type = "hidden" name = "artistprofile" value = {{artist.id}}> 
-            <input type="submit" value="Load their page!" class= 'btn' />
+            <input type="submit" value="Check them out!" class= 'btn' />
         </form>
     {% endfor %}
+    </ul>
 
 {% endif %}
+
+<form name = "logout" action="/profilepage/maxlogout/" method="post">
+		{% csrf_token %}
+		<div class="logout">
+				<br> <input type="submit" value="Logout" class= 'btn' /><br>
+		</div>
+		</form>
 </body>
 
 

@@ -13,12 +13,12 @@
     <header>
     
         <!-- here’s the avatar -->
-        <a href="http://victory-design.ru/">
-            <img src="http://victory-design.ru/sandbox/codepen/profile_card/avatar.svg" />
+        <a href="">
+            <img src="http://orig08.deviantart.net/ff48/f/2011/301/d/0/profile_picture_by_lucriogenics-d4e9yxs.jpg" />
         </a>
         
         <!-- the username -->
-        <h1>Jack </h1>
+        <h1>Jack</h1>
         
         <!-- and role or location -->
         <h2>Rock, Blues, and Classical Expert</h2>
@@ -82,17 +82,9 @@ Edit on
 html {
     height: 100%;
 }
-body {
-    background: #bcdee7 url("http://victory-design.ru/sandbox/codepen/profile_card/bg.png") no-repeat center center fixed;
-    background-size: 120% auto;
-    position: fixed;
-    padding: 0px;
-    margin: 0px;
-    width: 100%;
-    height: 100%;
-    font: normal 14px/1.618em "Roboto", sans-serif;
-    -webkit-font-smoothing: antialiased;
-}
+
+/*All credit to http://victory-design.ru/sandbox/codepen/profile_card/bg.png for the amazing css*/
+
 body:before {
     content: "";
     height: 0px;
@@ -941,6 +933,7 @@ body{
 .logout input[type=button]:focus{
 	outline: none;
 }
+
 .mudkip{
 	position: absolute;
 	top: calc(54%);
@@ -1033,6 +1026,12 @@ body{
 		{% csrf_token %}
 		<div class="logout">
 				<br> <input type="submit" value="Logout" class= 'btn' /><br>
+		</div>
+		</form>
+		<form name = "loaddisplay" action="/profilepage/loaddisplay/" method="post">
+		{% csrf_token %}
+		<div class="loaddisplay">
+				<br> <input type="submit" value="Load Display" class= 'btn' /><br>
 		</div>
 		</form>
   </body>
