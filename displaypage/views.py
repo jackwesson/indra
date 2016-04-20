@@ -42,10 +42,9 @@ def index(request):
         
 def loadprofile(request):
     if request.method == "POST":
-        usera = request.POST.get('artistprofile', False)
+        usera = request.POST.get('artistprofile')
         
         usera = User.objects.get(id = usera)
-        print (usera)
         return index2(request, usera)
         
         # django templates bulletins url

@@ -19,9 +19,11 @@ from django.http import HttpResponse
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm
 from .models import Profile, music, description
 
-def index(request):
+def index(request, person = ''):
     user = request.user
-    # userobj = User.objects.get(id=uid)
+    uid = request.session['mid']
+    userobj = User.objects.get(id=uid)
+    print (userobj)
    
     username = None
     if request.user.is_authenticated():
@@ -38,10 +40,12 @@ def index(request):
     blurb = False
     pic = False 
     try: 
-        print ('check this')
-        yourblurb = description.objects.get(Q(owner = user))
+        
+        you = description.objects.get(owner=userobj)
+        
+        yourblurb = you.blurb
         blurb = True
-        print ('this should work')
+        
     except description.DoesNotExist: 
         pass
     
@@ -52,7 +56,7 @@ def index(request):
         pass
     
     if blurb == True:
-        yourblurb = yourblurb.blurb
+        yourblurb = yourblurb
         passing['blurb'] =  yourblurb
     
     if pic == True:
@@ -82,15 +86,7 @@ def addpic(request):
         current_user = request.user
         obj, created = Profile.objects.update_or_create(owner=current_user,
                                                         defaults = {"profilepicture" : pic})
-        print(created)
-        
-        # if form.is_valid():
-        #     print ('did this work')
-        #     # file is saved
-        #     m = form.save()
-        #     m.user = User.objects.get(id=uid)
-        #     m.save()
-        #     print ('sdlkfjasldkfjsal;jdf')
+       
         form = UploadPictureForm()
     # return HttpResponse('stuff happened')
         return redirect('/profilepage')
@@ -114,24 +110,29 @@ def addmusic(request):
     
 def addblurb(request):
     if request.method == 'POST':
-        print ('made it this far')
+        
         blurb = request.POST.get('blurb')
         uid = request.session['mid']
         
         userobj = User.objects.get(id=uid)
         
         try:
-            print ('no lo')
+           
             desc = description.objects.get(owner=userobj)
             desc.blurb = blurb
             desc.save() 
-            print ('true lo')
+            
         except:
-            print ('wolo')
+            
             new_desc = description(owner = userobj, blurb = blurb)
             new_desc.save() 
-            print ('i cant believe it')
+            
     
     
     
     return redirect('/profilepage')
+    
+
+def maxlogout(request):
+    pooplogout(request)
+    return HttpResponseRedirect ('/')
