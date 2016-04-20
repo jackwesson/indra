@@ -36,7 +36,6 @@ def login(request):
         
         # The user model is a preset django model
     user = authenticate(username=email, password=password)
-    errorType = True
     if user is not None:
         if user.is_active:
             django_login(request, user)
@@ -51,7 +50,6 @@ def register(request):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        errorType = False 
         if len(username) > 50:
             return render(request, 'index.html', {'errors': 'Name is too long'})
         if len(username) == 0:
