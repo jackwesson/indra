@@ -1003,28 +1003,29 @@ body{
 		</div>
 		
 		<br>
-		
-		<form name = "profile_blurb" action="/profilepage/addblurb/" method="post">
-		{% csrf_token %}
-		<div class="entry">
-				<input type="text" placeholder="Blurb" name="blurb"><br><br>
-				<input onclick="profile()" type="button" value="Add Blurb">
-				<script>
-					function profile() {
-						document.profile_blurb.submit();
-					}
-				</script>
-				
-		</div>
-		</form>
-			<br>
-		<form name = "profile_upload" action="/profilepage/addpic/" method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-		<div class="propic">
-						<input type="file" name="pic" id="pic" value = "Enter Profile Picture" accept="image/*"  />
-	   					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>
-		</div>
-		</form>
+		{% if yes %}
+    		<form name = "profile_blurb" action="/profilepage/addblurb/" method="post">
+    		{% csrf_token %}
+    		<div class="entry">
+    				<input type="text" placeholder="Blurb" name="blurb"><br><br>
+    				<input onclick="profile()" type="button" value="Add Blurb">
+    				<script>
+    					function profile() {
+    						document.profile_blurb.submit();
+    					}
+    				</script>
+    				
+    		</div>
+    		</form>
+    			<br>
+    		<form name = "profile_upload" action="/profilepage/addpic/" method="post" enctype="multipart/form-data">
+    		{% csrf_token %}
+    		<div class="propic">
+    						<input type="file" name="pic" id="pic" value = "Enter Profile Picture" accept="image/*"  />
+    	   					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>
+    		</div>
+    		</form>
+		{% endif %}
 		<a href="https://www.google.com/webhp?hl=en" class = "icon">
  			<img src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glowing-purple-neon-icons-alphanumeric/112718-glowing-purple-neon-icon-alphanumeric-vertical-line.png" alt="HTML tutorial" style="width:92px;height:52px;border:0;">
 		</a>
