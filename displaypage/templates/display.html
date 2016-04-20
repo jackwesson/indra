@@ -259,6 +259,22 @@ li a:hover {
 
 
 <body>
+	<form name = "search_form" action="/displaypage/search/" method="post">
+		{% csrf_token %}
+		<div class="search">
+				<input type="radio" name="usertype" value="all" checked> All <br>
+				<input type="radio" name="usertype" value="venue" checked> Venue<br>
+  				<input type="radio" name="usertype" value="entertainer"> Entertainer<br>
+				<input onclick="enter()" type="button" value="search">
+				<script>
+					function enter() {
+						document.search_form.submit();
+					}
+				</script>
+				
+		</div>
+		</form>
+	
 {% if artists %}
     <h2>Here is everyone participating! </h2>
     <ul>

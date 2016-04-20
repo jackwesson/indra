@@ -48,3 +48,18 @@ def loadprofile(request):
 def maxlogout(request):
     pooplogout(request)
     return HttpResponseRedirect ('/')
+
+def search(request):
+    if request.method == 'POST':
+        if request.POST['usertype'] == 'venue':
+            artists = User.objects.filter(first_name = "venue")
+            context = {'artists': artists}
+            return render(request, 'display.html', context)
+        elif request.POST['usertype'] == 'entertainer':
+            artists = User.objects.filter(first_name = "entertainer")
+            context = {'artists': artists}
+            return render(request, 'display.html', context)
+        else:    
+            artists = User.objects.all()
+            context = {'artists': artists}
+            return render(request, 'display.html', context)
