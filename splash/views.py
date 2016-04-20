@@ -43,7 +43,7 @@ def login(request):
             # request.session['mid'] can be used to identify the user later
             return HttpResponseRedirect ('/profilepage/')
     else:
-        return render(request, 'index.html', {'errors': 'Incorrect Login Information'})  
+        return render(request, 'index.html', {'errors': 'Invalid Login Information'})  
         
 def register(request):
     if request.method == 'POST':
