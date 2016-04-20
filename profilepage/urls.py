@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^addpic/$', views.addpic, name = 'addpic'),
     url(r'^addmusic/$', views.addmusic, name = 'addmusic'),
     url(r'addblurb/$', views.addblurb, name = 'addblurb'),
-
+    url(r'maxlogout/$', views.maxlogout, name = 'maxlogout'),
 ]
