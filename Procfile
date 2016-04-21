@@ -1,1 +1,1 @@
-web: python manage.py runserver "0.0.0.0:$PORT"
+web: gunicorn projectwebsitev1/social_todo.wsgi:application --log-file -
