@@ -16,6 +16,7 @@ from django import template
 from django.template.loader import get_template 
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from models import connection
 
 
 from django.http import HttpResponse
@@ -65,3 +66,16 @@ def search(request):
             artists = User.objects.all()
             context = {'artists': artists}
             return render(request, 'display.html', context)
+
+def connect(request):
+    uid = request.session['mid']
+    userobj = User.objects.get(id=uid)
+    
+    uid2 = request.session['id2']
+    userobj2 = User.objects.get(id=uid2)
+    
+    new_connection = connection(target = userobj2, originator = userobj)
+    new_connection.save()
+    print ('it made it !!!!')
+    return redirect('/displaypage/loaddisplay')
+    

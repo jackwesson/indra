@@ -24,11 +24,9 @@ def index(request, person = ''):
     if person == '':
         user = request.user
         
+        
         uid = request.session['mid']
         userobj = User.objects.get(id=uid)
-        print ('cadlkfjasldfjslkfj;lsakdj')
-        print (userobj)
-        print ('1')
        
         # username = None
         # if request.user.is_authenticated():
@@ -79,7 +77,7 @@ def index(request, person = ''):
         user = person
         
         userobj = User.objects.get(username=user)
-        print (userobj)
+        request.session['id2'] = userobj.id
         
         passing = {'yes': False} 
         
@@ -176,11 +174,21 @@ def addblurb(request):
             new_desc = description(owner = userobj, blurb = blurb)
             new_desc.save() 
             
-    
-    
-    
     return redirect('/profilepage')
     
+# def connect(request):
+#     uid = request.session['mid']
+#     userobj = User.objects.get(id=uid)
+    
+#     uid2 = request.session['id2']
+#     userobj2 = User.objects.get(id=uid2)
+    
+#     new_connection = connection(target = userobj2, originator = userobj)
+#     new_connection.save()
+#     print ('it made it !!!!')
+#     return redirect('/displaypage/loaddisplay')
+    
+
 
 def maxlogout(request):
     pooplogout(request)

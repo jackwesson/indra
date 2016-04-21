@@ -21,4 +21,6 @@ class music(models.Model):
 class description(models.Model):
     owner = models.ForeignKey(User, related_name="band_name", primary_key = True)
     blurb = models.CharField(max_length=100)
+
+
     
