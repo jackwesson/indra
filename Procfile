@@ -1,1 +1,1 @@
-web: gunicorn projectwebsitev1/social_todo.wsgi:application --log-file -
+web: gunicorn social_todo.wsgi:application --log-file -
