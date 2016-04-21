@@ -24,7 +24,7 @@ from django.http import HttpResponse
 
 
 # Create your views here.
-def index(request):
+def index(request, typecheck = ''):
     if request.method == "POST":
         return redirect('/displaypage')
     artists = User.objects.all()
@@ -78,9 +78,10 @@ def connect(request):
     print ('this is the target')
     print (userobj2)
     
-    new_connection = connection(target = userobj2)
+    new_connection = connection(target = userobj2, originator = userobj)
     new_connection.save()
-    new_connection.originator.add(userobj) 
+    # new_connection.originator.add(userobj) 
+    # new_connection.save()
     print(new_connection.originator)
     
     return redirect('/profilepage')

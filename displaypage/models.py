@@ -13,5 +13,5 @@ from django.conf import settings
 
 class connection(models.Model):
     target = models.ForeignKey(User, related_name="target")
-    originator = models.ManyToManyField(User, related_name="originator")
+    originator = models.ForeignKey(User, related_name="originator")
     accepted = models.BooleanField(default = False)
