@@ -1146,7 +1146,7 @@ body{
     		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
         		{% csrf_token %}
         		<div class="">
-        				{{ form }}
+        				{{ eventform }}
                         <br> <input type="submit" value="Post the event!" class= 'btn' /><br>
         		</div>
         		</form>

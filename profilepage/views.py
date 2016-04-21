@@ -17,7 +17,7 @@ from django.contrib.sessions.models import Session
 from django.http import HttpResponse
 
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm, UploadEventForm
-from .models import Profile, music, description
+from .models import Profile, music, description, event
 
 
 def index(request, person = ''):
@@ -230,4 +230,25 @@ def loaddisplay(request):
         return index2(request)
 
 def addevent(request):
-    pass
+    if request.method == "POST":
+        eventname = request.POST.get('eventname')
+        date = request.POST.get('date')
+        print (date)
+        price = request.POST.get('price')
+        print ('this should be price')
+        print (price)
+        uid = request.session['mid']
+        userobj = User.objets.get(id = uid)
+        
+        new_event = event(owner = userobj, event_name = eventname, date = date, price = price)
+        new_event.save()
+        
+        redirect('/profilepage')
+        
+
+def deleteconnection(request):
+    connect = request.POST['connect_id']
+    connectide = connection.objects.get(id = connect)
+    connectide.delete()
+    redirect('/profilepage')
+    

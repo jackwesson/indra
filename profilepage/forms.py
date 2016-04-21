@@ -15,6 +15,7 @@ class UploadBlurbForm(forms.Form):
     blurb = forms.CharField()
     
 class UploadEventForm(forms.Form):
-    date = forms.DateInput()
-    price = forms.DecimalField(max_digits=3, decimal_places=2)
+    eventname = forms.CharField('eventname')
+    date = forms.DateInput('date')
+    price = forms.DecimalField('price', max_digits=3, decimal_places=2)
     
