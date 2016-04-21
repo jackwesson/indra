@@ -16,7 +16,7 @@ from django.contrib.sessions.models import Session
 
 from django.http import HttpResponse
 
-from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm
+from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm, UploadEventForm
 from .models import Profile, music, description
 
 
@@ -28,17 +28,6 @@ def index(request, person = ''):
         uid = request.session['mid']
         userobj = User.objects.get(id=uid)
        
-        # username = None
-        # if request.user.is_authenticated():
-        #     username = request.user.username
-        
-        # render can only take three inputs, if you want to pass multiple inputs you have to combine them into 1, (in this case context)
-        # form1 = UploadPictureForm()
-        # form2 = UploadMusicForm()
-        # form3 = UploadBlurbForm()
-      
-        
-        # passing = {'form1': form1, 'form2': form2, 'form3': form3}
         passing = {'yes': True} 
         
         blurb = False
@@ -96,6 +85,18 @@ def index(request, person = ''):
         if len(sourcelist) > 0:
             print('3')
             passing['connects'] = sourcelist
+        if userobj.first_name == 'venue':
+            passing['eventform'] = UploadEventForm()
+            yesevents = False
+            try: 
+                x = events.objects.get(owner=userobj)
+                allevents = x
+                yesevents = True
+            except:
+                pass
+            if yesevents == True:
+                passing['event'] = allevents
+                
         
         print (passing)
         return render(request, 'profile.html', passing)
@@ -228,3 +229,5 @@ def loaddisplay(request):
     if request.method == "POST":
         return index2(request)
 
+def addevent(request):
+    pass

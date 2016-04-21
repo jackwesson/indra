@@ -115,6 +115,40 @@ h2 {
 p {
     margin: 0px;
 }
+/*I added*/
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+  border-bottom: 1px solid #ccc;
+}
+
+li:last-child {
+  border: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #000;
+
+  -webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -o-transition: font-size 0.3s ease, background-color 0.3s ease;
+  -ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+  transition: font-size 0.3s ease, background-color 0.3s ease;
+  display: block;
+  width: 200px;
+}
+
+li a:hover {
+  font-size: 30px;
+  background: #f6f6f6;
+}
+/*I added*/
 .profile-card {
     background: #FFB300;
     width: 56px;
@@ -1108,12 +1142,28 @@ body{
     	   					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>
     		</div>
     		</form>
+    		{% if eventform %}
+    		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
+        		{% csrf_token %}
+        		<div class="">
+        				{{ form }}
+                        <br> <input type="submit" value="Post the event!" class= 'btn' /><br>
+        		</div>
+        		</form>
+    		{% endif %}
+    		
+    		
     		{% if connects %}
                 <h2>Here are your connections! </h2>
                 <ul>
                 {% for connect in connects %}
                     <li>Target: {{ connect.target }}</li>
                     <li>Originator: {{ connect.originator }}</li>
+                    <form method="POST" action = "deleteconnection/">
+                        {% csrf_token %}
+                        <input type = "hidden" name = "connect_id" value = {{connect.id}}> 
+                        <input type="submit" value="Delete the connection!" class= 'btn' />
+                    </form>
                     
                 {% endfor %}
                 </ul>
@@ -1130,6 +1180,16 @@ body{
     		</form>
             
 		{% endif %}
+		
+		
+		{% if events %}
+		    <h2>Here is your scheduled event!</h2>
+		    <ul>
+		        <l> Event name: {{ events.event_name }}</l>
+		        <l> Event date: {{ events.date }} </l>
+		        <l> Estimated price: {{ events.price }}</l>
+		    </ul>
+	    {% endif %}}
 		
 		<a href="https://www.google.com/webhp?hl=en" class = "icon">
  			<img src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glowing-purple-neon-icons-alphanumeric/112718-glowing-purple-neon-icon-alphanumeric-vertical-line.png" alt="HTML tutorial" style="width:92px;height:52px;border:0;">

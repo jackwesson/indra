@@ -14,4 +14,7 @@ class UploadMusicForm(forms.ModelForm):
 class UploadBlurbForm(forms.Form):
     blurb = forms.CharField()
     
+class UploadEventForm(forms.Form):
+    date = forms.DateInput()
+    price = forms.DecimalField(max_digits=3, decimal_places=2)
     

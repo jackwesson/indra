@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'addblurb/$', views.addblurb, name = 'addblurb'),
     url(r'maxlogout/$', views.maxlogout, name = 'maxlogout'),
     url(r'^loaddisplay/$', views.loaddisplay, name = 'loaddisplay'),
+    url(r'^addevent?$', views.addevent, name = 'addevent')
     # url(r'displaypage/loadprofile/connect', views.connect, name = 'connect'),
 ]

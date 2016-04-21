@@ -22,5 +22,9 @@ class description(models.Model):
     owner = models.ForeignKey(User, related_name="band_name", primary_key = True)
     blurb = models.CharField(max_length=100)
 
-
+class event(models.Model):
+    owner = models.ForeignKey(User, related_name="venue_name", primary_key = True)
+    event_name = models.CharField(max_length = 100)
+    date = models.DateField()
+    price = models.DecimalField(max_digits=3, decimal_places=2)
     

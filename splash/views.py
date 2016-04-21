@@ -20,6 +20,8 @@ from models import UserProfile
 # admin1@example.com
 # password11
 
+# article that has useful stats on a competitor company
+# https://www.entrepreneur.com/article/248011
 
 def landing(request):
     
