@@ -43,31 +43,59 @@ def index(request, person = ''):
         
         blurb = False
         pic = False 
+        foryou = False
+        youon = False
         
         try: 
-            
-            you = description.objects.get(owner=userobj)
-            
+            you = description.objects.get(target=userobj)
             yourblurb = you.blurb
             blurb = True
             
-        except description.DoesNotExist: 
+        except:
+            pass
+        try: 
+            from displaypage.models import connection
+            x = description.objects.filter(Q(originator=userobj))
+            fromyou = x 
+            print ('should be this')
+            print (fromyou)
+            youon = True
+            
+        except: 
             pass
         
+        try: 
+            from displaypage.models import connection
+            y = connection.objects.filter(Q(target=userobj))
+            toyou = y
+            print ('should not be this')
+            print (toyou)
+            foryou = True
+        except description.DoesNotExist: 
+            pass
         try:
             you2 = Profile.objects.get(owner=userobj)
-            
             pic = True
         except Profile.DoesNotExist:
             pass
         
         if blurb == True:
-        
             passing['blurb'] =  yourblurb
         
         if pic == True:
             yourpic = you2.profilepicture
             passing['pic'] =  yourpic
+        sourcelist = []
+        if foryou == True:
+            print('1')
+            sourcelist = sourcelist + list(toyou)
+            print(sourcelist)
+        if youon == True:
+            print('2')
+            sourcelist = sourcelist + list(fromyou)
+        if len(sourcelist) > 0:
+            print('3')
+            passing['connects'] = sourcelist
         
         print (passing)
         return render(request, 'profile.html', passing)

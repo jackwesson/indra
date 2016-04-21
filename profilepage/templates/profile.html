@@ -1108,6 +1108,18 @@ body{
     	   					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>
     		</div>
     		</form>
+    		{% if connects %}
+                <h2>Here are your connections! </h2>
+                <ul>
+                {% for connect in connects %}
+                    <li>Target: {{ connect.target }}</li>
+                    <li>Originator: {{ connect.originator }}</li>
+                    
+                {% endfor %}
+                </ul>
+
+            {% endif %}
+    		
     	{% else %}
     	    <form name = "connect" action="/displaypage/loadprofile/connect/" method="post" enctype="multipart/form-data">
     		{% csrf_token %}

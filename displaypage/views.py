@@ -70,12 +70,18 @@ def search(request):
 def connect(request):
     uid = request.session['mid']
     userobj = User.objects.get(id=uid)
+    print ('this is the originator')
+    print (userobj)
     
     uid2 = request.session['id2']
     userobj2 = User.objects.get(id=uid2)
+    print ('this is the target')
+    print (userobj2)
     
-    new_connection = connection(target = userobj2, originator = userobj)
+    new_connection = connection(target = userobj2)
     new_connection.save()
-    print ('it made it !!!!')
-    return redirect('/displaypage/loaddisplay')
+    new_connection.originator.add(userobj) 
+    print(new_connection.originator)
+    
+    return redirect('/profilepage')
     
