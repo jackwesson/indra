@@ -24,7 +24,7 @@
         <h2>Rock, Blues, and Classical Expert</h2>
     
     </header>
-    <div class= "profile_bio">
+    <div class= "profile-bio">
 		<p>
 		{% if blurb %}
 			{{blurb}}
@@ -984,18 +984,7 @@ body{
 		</div>
 		
 		
-		 <div class= "profile-bio">
-		{% if blurb %}
-			{{blurb}}
-		{% endif %}
-		</div>
-		<div class= "mudkip">
-		{% if blurb %}
-			{{blurb}}
-		{% endif %}
-		</div>
 		
-		<br>
 		{% if yes %}
     		<form name = "profile_blurb" action="/profilepage/addblurb/" method="post">
     		{% csrf_token %}
