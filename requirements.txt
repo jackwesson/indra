@@ -73,3 +73,4 @@ wsgiref==0.1.2
 zope.interface==4.0.5
 gunicorn==19.4.5
 psycopg2==2.5.4
+dj-database-url==0.4.1
