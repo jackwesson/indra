@@ -18,22 +18,44 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from models import connection
 
+from profilepage.models import event
 
 from django.http import HttpResponse
 
 
 
 # Create your views here.
-def index(request, typecheck = ''):
+def index(request):
     if request.method == "POST":
         return redirect('/displaypage')
+    try:
+        if request.session['search'] == 'venue':
+            artists = User.objects.filter(first_name = "venue")
+            context = {'artists': artists}
+            request.session['search'] = ''
+            return render(request, 'display.html', context)
+        elif request.session['search'] == 'entertainer':
+            artists = User.objects.filter(first_name = "entertainer")
+            context = {'artists': artists}
+            request.session['search'] = ''
+            return render(request, 'display.html', context)
+    except:
+        pass
+    
     artists = User.objects.all()
     content = artists
+    context = {'artists': content}
     
+    try: 
+        events = events.objects.all()
+        hoop = events
+        context = {'artists': content, 'events': hoop}
+    except:
+        pass
     
     
     # render can only take three inputs, if you want to pass multiple inputs you have to combine them into 1, (in this case context)
-    context = {'artists': artists}
+    
     return render(request, 'display.html', context)
         
     
@@ -53,19 +75,23 @@ def maxlogout(request):
     return HttpResponseRedirect ('/')
 
 def search(request):
-    if request.method == 'POST':
-        if request.POST['usertype'] == 'venue':
-            artists = User.objects.filter(first_name = "venue")
-            context = {'artists': artists}
-            return render(request, 'display.html', context)
-        elif request.POST['usertype'] == 'entertainer':
-            artists = User.objects.filter(first_name = "entertainer")
-            context = {'artists': artists}
-            return render(request, 'display.html', context)
-        else:    
-            artists = User.objects.all()
-            context = {'artists': artists}
-            return render(request, 'display.html', context)
+    request.session['search'] = request.POST['usertype']
+    return index(request)
+    # if request.method == 'POST':
+    #     if request.POST['usertype'] == 'venue':
+    #         artists = User.objects.filter(first_name = "venue")
+    #         context = {'artists': artists}
+    #         return render(request, 'display.html', context)
+    #     elif request.POST['usertype'] == 'entertainer':
+    #         artists = User.objects.filter(first_name = "entertainer")
+    #         context = {'artists': artists}
+    #         return render(request, 'display.html', context)
+    #     else:    
+    #         artists = User.objects.all()
+    #         context = {'artists': artists}
+    #         return render(request, 'display.html', context)
+    # # print(request.POST['usertype'])
+    # return index(request, request.POST['usertype'])
 
 def connect(request):
     uid = request.session['mid']

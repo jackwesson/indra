@@ -274,6 +274,24 @@ li a:hover {
 				
 		</div>
 		</form>
+{% if events %}
+    <h2>Here are all the current events! </h2>
+    <ul>
+    {% for event in events %}
+        
+        <li>Host: {{ event.owner }}</li>
+        <li>Event Name: event.name }}</li>
+        <li>Time: {{ event.date }}</li>
+        <form method="POST" action = "loadprofile/">
+            {% csrf_token %}
+            <input type = "hidden" name = "artistprofile" value = {{artist.id}}> 
+            <input type="submit" value="Check them out!" class= 'btn' />
+        </form>
+    {% endfor %}
+    </ul>
+
+{% endif %}
+
 	
 {% if artists %}
     <h2>Here is everyone participating! </h2>

@@ -25,6 +25,7 @@ class description(models.Model):
 class event(models.Model):
     owner = models.ForeignKey(User, related_name="venue_name", primary_key = True)
     event_name = models.CharField(max_length = 100)
+    event_description = models.CharField(max_length = 200)
     date = models.DateField()
     price = models.DecimalField(max_digits=3, decimal_places=2)
     

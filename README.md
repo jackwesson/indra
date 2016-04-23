@@ -1,5 +1,12 @@
 # Social todo Django starter code
 
+git add . 
+git commit 
+
+git push heroku master 
+
+heroku run python manage.py makemigrations
+
 We wrote this in office hours. It defines the models for tasks,
 migrations, etc. It is based on the 
 [Django tutorial](https://docs.djangoproject.com/en/1.9/intro/).

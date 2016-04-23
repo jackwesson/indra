@@ -237,10 +237,11 @@ def addevent(request):
         price = request.POST.get('price')
         print ('this should be price')
         print (price)
+        event_desc = request.POST.get('event_desc')
         uid = request.session['mid']
         userobj = User.objets.get(id = uid)
         
-        new_event = event(owner = userobj, event_name = eventname, date = date, price = price)
+        new_event = event(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
         new_event.save()
         
         redirect('/profilepage')
