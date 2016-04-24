@@ -1547,18 +1547,43 @@
     	   					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>
     		</div>
     		</form>
-    	
-		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
-    		{% csrf_token %}
-    		<div class="eventform">
-    		        <input type="text" placeholder="eventname" name="eventname"><br><br>
-    		        <input type="text" placeholder="eventdesc" name="eventdesc"><br><br>
-    				<input type="date" placeholder="eventdate" name= "eventdate"><br><br>
-                    <input type="text" placeholder="price" name="price"><br><br>
-                    
-                    <br> <input type="submit" value="Post the event!" class= 'btn' /><br>
-    		</div>
-    		</form>
+    	    {% if venue %}
+    		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
+        		{% csrf_token %}
+        		<div class="eventform">
+        		        <input type="text" placeholder="eventname" name="eventname"><br><br>
+        		        <input type="text" placeholder="eventdesc" name="eventdesc"><br><br>
+        				<input type="date" placeholder="eventdate" name= "eventdate"><br><br>
+                        <input type="text" placeholder="price" name="price"><br><br>
+                        
+                        <br> <input type="submit" value="Post the event!" class= 'btn' /><br>
+        		</div>
+        		</form>
+    		{% else %}
+    		    {% if booked %}
+        		    <h2>Congratulations: Here are your bookings! </h2>
+                    <div class = 'bookings'>
+                    <ul>
+                    {% for book in booked %}
+                        <li>You have been selected for: "{{ book.event_name }}" on {{ book.date }} at {{ book.owner }}</li> <br>
+                    {% endfor %}
+                {% endif %}
+                    </div>
+                {% if requested %}
+        		    <h2>Here are the events you have requested! </h2>
+                    <div class = 'requests'>
+                    <ul>
+                    {% for request in requested %}
+                        <li>You have applied for: "{{ request.event_name }}" on {{ request.date }} at {{ request.owner }}  </li>
+                  
+                    {% endfor %}
+                {% endif %}
+                    </div>
+                </ul>
+               
+    		    
+    		    
+    		{% endif %}
     		
     		
     		
@@ -1596,17 +1621,21 @@
     		        <l> Event Description: {{ event.event_description }}</l><br>
     		        <l> Event date: {{ event.date }} </l><br>
     		        <l> Estimated price: {{ event.price }}</l><br>
-    		        {% for applicant in event.interested.all %}
-    		            <form method = "POST" action = "selectapplicant">
-    		                {% csrf_token %}
-    		                <input type = "hidden" name = "event_id" value = {{event.id}}> 
-    		                <input type = "hidden" name = "app_id" value = {{applicant.id}}> 
-    		                 
-    		                Applicant: {{ applicant }}   <input type="submit" value="Select this artist!" class= 'btn' />
-    		            </form>
-		            {% endfor %}
-		            {% if event.chosen %}
+    		        
+    		        
+    		        {% if event.chosen %}
 		                You have selectect: {{ event.chosen }}
+	                {% else %}
+    		        
+        		        {% for applicant in event.interested.all %}
+        		            <form method = "POST" action = "selectapplicant">
+        		                {% csrf_token %}
+        		                <input type = "hidden" name = "event_id" value = {{event.id}}> 
+        		                <input type = "hidden" name = "app_id" value = {{applicant.id}}> 
+        		                 
+        		                Applicant: {{ applicant }}   <input type="submit" value="Select this artist!" class= 'btn' />
+        		            </form>
+    		            {% endfor %}
 	                {% endif %}
     		        
     		    </ul>
@@ -1628,15 +1657,24 @@
     		    <div class = event>
     		    <h2>Here is the scheduled event!</h2>
     		    <ul>
-    		        <form method="POST" action = "/displaypage/loadprofile/applyevent/">
-                        {% csrf_token %}
-                        <input type = "hidden" name = "event_id" value = {{event.id}}> 
-                        <input type="submit" value="Apply to this event" class= 'btn' />
-                    </form>
-    		        <l> Event name: {{ event.event_name }}</l><br>
-    		        <l> Event Description: {{ event.event_description }}</l><br>
-    		        <l> Event date: {{ event.date }} </l><br>
-    		        <l> Estimated price: {{ event.price }}</l><br>
+    		        {% if event.chosen %}
+		                <l> Event name: {{ event.event_name }}</l><br>
+        		        <l> Event Description: {{ event.event_description }}</l><br>
+        		        <l> Event date: {{ event.date }} </l><br>
+        		        <l> Estimated price: {{ event.price }}</l><br>
+		                They selectected: {{ event.chosen }}
+	                {% else %}
+        		        <form method="POST" action = "/displaypage/loadprofile/applyevent/">
+                            {% csrf_token %}
+                            <input type = "hidden" name = "event_id" value = {{event.id}}> 
+                            <input type="submit" value="Apply to this event" class= 'btn' />
+                        </form>
+        		        <l> Event name: {{ event.event_name }}</l><br>
+        		        <l> Event Description: {{ event.event_description }}</l><br>
+        		        <l> Event date: {{ event.date }} </l><br>
+        		        <l> Estimated price: {{ event.price }}</l><br>
+    		        {% endif %}
+        		        
     		    </ul>
     		    </div>
     		    {% endfor %}

@@ -31,8 +31,7 @@ def index(request, person = ''):
     
     if person == '':
         user = request.user
-        
-        
+
         uid = request.session['mid']
         userobj = User.objects.get(id=uid)
        
@@ -44,6 +43,7 @@ def index(request, person = ''):
         youon = False
         event = False
         
+        # get any descriptions
         try: 
             you = description.objects.get(target=userobj)
             yourblurb = you.blurb
@@ -51,38 +51,35 @@ def index(request, person = ''):
             
         except:
             pass
-        try: 
-            from displaypage.models import connection
-            x = description.objects.filter(Q(originator=userobj))
-            fromyou = x 
-            print ('should be this')
-            print (fromyou)
-            youon = True
-            
-        except: 
-            pass
         
-        try: 
-            from displaypage.models import connection
-            y = connection.objects.filter(Q(target=userobj))
-            toyou = y
+        # get any connections
+        # try: 
+        #     from displaypage.models import connection
+        #     x = description.objects.filter(Q(originator=userobj))
+        #     fromyou = x 
+        #     print ('should be this')
+        #     print (fromyou)
+        #     youon = True
             
-            foryou = True
-        except description.DoesNotExist: 
-            pass
+        # except: 
+        #     pass
+        
+        # # get all 
+        # try: 
+        #     from displaypage.models import connection
+        #     y = connection.objects.filter(Q(target=userobj))
+        #     toyou = y
+            
+        #     foryou = True
+        # except description.DoesNotExist: 
+        #     pass
+        
+        # get the profile picture
         try:
             you2 = Profile.objects.get(owner=userobj)
             pic = True
         except Profile.DoesNotExist:
             pass
-        # try:
-        #     allevents = events.objects.filter(owner=userobj)
-        #     event = True
-        # except 
-        #     pass
-        # if event == True:
-        #     passing['events'] = allevents
-        
         
         if blurb == True:
             passing['blurb'] =  yourblurb
@@ -90,44 +87,56 @@ def index(request, person = ''):
         if pic == True:
             yourpic = you2.profilepicture
             passing['pic'] =  yourpic
-        sourcelist = []
-        if foryou == True:
-            sourcelist = sourcelist + list(toyou)
-    
-        if youon == True:
             
-            sourcelist = sourcelist + list(fromyou)
-        if len(sourcelist) > 0:
-            print('3')
-            passing['connects'] = sourcelist
+        # sourcelist = []
+        # if foryou == True:
+        #     sourcelist = sourcelist + list(toyou)
+    
+        # if youon == True:
+            
+        #     sourcelist = sourcelist + list(fromyou)
+        # if len(sourcelist) > 0:
+        #     print('3')
+        #     passing['connects'] = sourcelist
         
         print(userobj.first_name)
         
+        passing['venue'] = False
         if userobj.first_name == 'venue':
-            passing['eventform'] = UploadEventForm()
+            passing['venue'] = True
             yesevents = False
             # try: 
             print ('should definitely get here')
             # x = event.objects.filter(owner=userobj)
             
-            
-            x = artistevents.objects.all().filter(owner=userobj)
-            # print(x)
-            allevents = list(x)
-            print(allevents)
-            yesevents = True
-            for y in x:
+            try: 
+                x = artistevents.objects.all().filter(owner=userobj)
+                # print(x)
+                allevents = list(x)
+                yesevents = True
                 
-                print (y.chosen)
-            print ('definitely to here as well')
-            # except:
-            #     pass
+            except:
+                pass
             
-            # except:
-            #     pass
-            # print(x.event_description)
             if yesevents == True:
                 passing['events'] = x
+        else:
+            requested = False
+            booked = False
+            try:
+                x = artistevents.objects.all().filter(interested=userobj)
+                requested = True
+            except:
+                pass
+            try:
+                y = artistevents.objects.all().filter(chosen=userobj)
+                booked = True
+            except:
+                pass
+            if requested == True:
+                passing['requested'] = x
+            if booked == True:
+                passing['booked'] = y
                 
         
         print (passing)
@@ -217,8 +226,6 @@ def addpic(request):
         request.session['somethingdone'] = 'yes'
         return index(request)
     
-
-
 def addmusic(request):
     if request.method == 'POST':
         form =UploadMusicForm(request.POST, request.FILES)
@@ -257,17 +264,6 @@ def addblurb(request):
         
     return index(request)
     
-# def connect(request):
-#     uid = request.session['mid']
-#     userobj = User.objects.get(id=uid)
-    
-#     uid2 = request.session['id2']
-#     userobj2 = User.objects.get(id=uid2)
-    
-#     new_connection = connection(target = userobj2, originator = userobj)
-#     new_connection.save()
-#     print ('it made it !!!!')
-#     return redirect('/displaypage/loaddisplay')
     
 
 
@@ -323,6 +319,11 @@ def selectapplicant(request):
     
     event = artistevents.objects.get(id=eventid)
     event.chosen = applicant
+    
+    for x in event.interested.all():
+        event.interested.remove(x)
+    
+    
     event.save()
     
     request.session['somethingdone'] = 'yes'
