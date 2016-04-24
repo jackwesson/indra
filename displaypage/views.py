@@ -39,6 +39,14 @@ def index(request):
             context = {'artists': artists}
             request.session['search'] = ''
             return render(request, 'display.html', context)
+        # elif request.session['search'] != '':
+        #     usera =  request.session['search']
+        #     print ('1212')
+        #     artists = User.objects.get(username = usera)
+        #     print artists
+        #     context = {'artists': artists}
+        #     request.session['search'] = ''
+        #     return render(request, 'display.html', context)
     except:
         pass
     
@@ -78,6 +86,9 @@ def maxlogout(request):
     return HttpResponseRedirect ('/')
 
 def search(request):
+    # if request.POST['searchtext'] != '':
+    #     request.session['search'] = request.POST['searchtext']
+    
     request.session['search'] = request.POST['usertype']
     return index(request)
     

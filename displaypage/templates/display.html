@@ -262,6 +262,8 @@ li a:hover {
 	<form name = "search_form" action="/displaypage/search/" method="post">
 		{% csrf_token %}
 		<div class="search">
+				<!--<input type="text" name="searchtext" placeholder="Enter name to search"><br>-->
+				Search for who you want! <br>
 				<input type="radio" name="usertype" value="all" checked> All <br>
 				<input type="radio" name="usertype" value="venue" checked> Venue<br>
   				<input type="radio" name="usertype" value="entertainer"> Entertainer<br>
