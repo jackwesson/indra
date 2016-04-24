@@ -22,8 +22,12 @@ from displaypage.models import connection
 
 
 def index(request, person = ''):
-    if request.method == "POST":
-        return redirect('/profilepage/')
+    try:
+        if request.session['somethingdone'] == "yes":
+            request.session['somethingdone'] = ''
+            return redirect('/profilepage/')
+    except:
+        pass
     
     if person == '':
         user = request.user
@@ -186,7 +190,8 @@ def addpic(request):
        
         form = UploadPictureForm()
     # return HttpResponse('stuff happened')
-        return redirect('/profilepage')
+        request.session['somethingdone'] = 'yes'
+        return index(request)
     
 
 
@@ -224,7 +229,9 @@ def addblurb(request):
             new_desc = description(owner = userobj, blurb = blurb)
             new_desc.save() 
             
-    return redirect('/profilepage')
+    request.session['somethingdone'] = 'yes'
+        
+    return index(request)
     
 # def connect(request):
 #     uid = request.session['mid']
@@ -265,6 +272,7 @@ def addevent(request):
         
         new_event = venueevents(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
         new_event.save()
+        request.session['somethingdone'] = 'yes'
         
         return index(request)
         
