@@ -110,14 +110,18 @@ def index(request, person = ''):
             print ('should definitely get here')
             # x = event.objects.filter(owner=userobj)
             
-            try:
-                x = artistevents.objects.all().filter(owner=userobj)
-                # print(x)
-                allevents = list(x)
-                yesevents = True
-                print ('definitely to here as well')
-            except:
-                pass
+            
+            x = artistevents.objects.all().filter(owner=userobj)
+            # print(x)
+            allevents = list(x)
+            print(allevents)
+            yesevents = True
+            for y in x:
+                
+                print (y.chosen)
+            print ('definitely to here as well')
+            # except:
+            #     pass
             
             # except:
             #     pass
@@ -147,6 +151,7 @@ def index(request, person = ''):
             allevents = list(x)
             yesevents = True
             print ('definitely to here as well')
+            
             
             # except:
             #     pass
@@ -300,6 +305,7 @@ def deleteconnection(request):
     connect = request.POST['connect_id']
     connectide = connection.objects.get(id = connect)
     connectide.delete()
+    request.session['somethingdone'] = 'yes'
     return index(request)
     
 
@@ -307,5 +313,17 @@ def deleteevent(request):
     event = request.POST['event_id']
     eventide = artistevents.objects.get(id = event)
     eventide.delete()
+    request.session['somethingdone'] = 'yes'
     return index(request)
     
+def selectapplicant(request):
+    applicantid = request.POST['app_id']
+    eventid = request.POST['event_id']
+    applicant = User.objects.get(id = applicantid)
+    
+    event = artistevents.objects.get(id=eventid)
+    event.chosen = applicant
+    event.save()
+    
+    request.session['somethingdone'] = 'yes'
+    return index(request)
