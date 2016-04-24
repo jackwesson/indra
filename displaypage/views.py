@@ -18,7 +18,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from models import connection
 
-from profilepage.models import events
+from profilepage.models import venueevents
 
 from django.http import HttpResponse
 
@@ -48,7 +48,7 @@ def index(request):
     
     try: 
         print ('please make it here')
-        events = events.objects.all()
+        events = venueevents.objects.all()
         hoop = list(events)
         print('did it make it here?')
         context = {'artists': content, 'events': events}

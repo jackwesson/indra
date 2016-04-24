@@ -23,7 +23,7 @@ class description(models.Model):
     blurb = models.CharField(max_length=100)
 
 
-class events(models.Model):
+class venueevents(models.Model):
     owner = models.ForeignKey(User, related_name="venue_name", unique = False)
     event_name = models.CharField(max_length = 100)
     event_description = models.CharField(max_length = 200)

@@ -17,7 +17,7 @@ from django.contrib.sessions.models import Session
 from django.http import HttpResponse
 
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm, UploadEventForm
-from .models import Profile, music, description, events
+from .models import Profile, music, description, venueevents
 from displaypage.models import connection
 
 
@@ -106,7 +106,7 @@ def index(request, person = ''):
             print ('should definitely get here')
             # x = event.objects.filter(owner=userobj)
             
-            x = events.objects.all().filter(owner=userobj)
+            x = venueevents.objects.all().filter(owner=userobj)
             # print(x)
             allevents = list(x)
             yesevents = True
@@ -263,7 +263,7 @@ def addevent(request):
         uid = request.session['mid']
         userobj = User.objects.get(id = uid)
         
-        new_event = events(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
+        new_event = venueevents(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
         new_event.save()
         
         return index(request)
