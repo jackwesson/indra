@@ -137,6 +137,22 @@ def index(request, person = ''):
         
         blurb = False
         pic = False 
+        try: 
+            
+            x = venueevents.objects.all().filter(owner=userobj)
+            # print(x)
+            allevents = list(x)
+            yesevents = True
+            print ('definitely to here as well')
+            
+            # except:
+            #     pass
+            # print(x.event_description)
+        except:
+            pass
+        if yesevents == True:
+                passing['events'] = x
+        
         
         try: 
             
@@ -281,5 +297,12 @@ def deleteconnection(request):
     connect = request.POST['connect_id']
     connectide = connection.objects.get(id = connect)
     connectide.delete()
+    return index(request)
+    
+
+def deleteevent(request):
+    event = request.POST['event_id']
+    eventide = venueevents.objects.get(id = event)
+    eventide.delete()
     return index(request)
     

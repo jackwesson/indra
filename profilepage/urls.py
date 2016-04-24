@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^loaddisplay/$', views.loaddisplay, name = 'loaddisplay'),
     url(r'^addevent/$', views.addevent, name = 'addevent'),
     url(r'^deleteconnection/$', views.deleteconnection, name = 'deleteconnection'),
+    url(r'^deleteevent/$', views.deleteevent, name = 'deleteevent'),
     # url(r'displaypage/loadprofile/connect', views.connect, name = 'connect'),
 ]

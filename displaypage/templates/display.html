@@ -280,7 +280,7 @@ li a:hover {
     {% for event in events %}
         
         <li>Host: {{ event.owner }}</li>
-        <li>Event Name: event.name }}</li>
+        <li>Event Name: {{ event.event_name }}</li>
         <li>Time: {{ event.date }}</li>
         <form method="POST" action = "loadprofile/">
             {% csrf_token %}

@@ -1581,6 +1581,26 @@
                 </div>
 
             {% endif %}
+            
+            {% if events %}
+    		    {% for event in events %}
+    		    <div class = event>
+    		    <h2>Here is your scheduled event!</h2>
+    		    <ul>
+    		        <form method="POST" action = "deleteevent/">
+                        {% csrf_token %}
+                        <input type = "hidden" name = "event_id" value = {{event.id}}> 
+                        <input type="submit" value="Delete the event" class= 'btn' />
+                    </form>
+    		        <l> Event name: {{ event.event_name }}</l><br>
+    		        <l> Event Description: {{ event.event_description }}</l><br>
+    		        <l> Event date: {{ event.date }} </l><br>
+    		        <l> Estimated price: {{ event.price }}</l><br>
+    		        
+    		    </ul>
+    		    </div>
+    		    {% endfor %}
+	        {% endif %}}
     		
     	{% else %}
     	    <form name = "connect" action="/displaypage/loadprofile/connect/" method="post" enctype="multipart/form-data">
@@ -1590,23 +1610,21 @@
     				
     		</div>
     		</form>
-            
-		{% endif %}
 		
-		
-		{% if events %}
-		    {% for event in events %}
-		    <div class = event>
-		    <h2>Here is your scheduled event!</h2>
-		    <ul>
-		        <l> Event name: {{ event.event_name }}</l><br>
-		        <l> Event Description: {{ event.event_description }}</l><br>
-		        <l> Event date: {{ event.date }} </l><br>
-		        <l> Estimated price: {{ event.price }}</l><br>
-		    </ul>
-		    </div>
-		    {% endfor %}
-	    {% endif %}}
+    		{% if events %}
+    		    {% for event in events %}
+    		    <div class = event>
+    		    <h2>Here is your scheduled event!</h2>
+    		    <ul>
+    		        <l> Event name: {{ event.event_name }}</l><br>
+    		        <l> Event Description: {{ event.event_description }}</l><br>
+    		        <l> Event date: {{ event.date }} </l><br>
+    		        <l> Estimated price: {{ event.price }}</l><br>
+    		    </ul>
+    		    </div>
+    		    {% endfor %}
+    	    {% endif %}}
+	    {% endif %}
 		
 		<a href="https://www.google.com/webhp?hl=en" class = "icon">
  			<img src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glowing-purple-neon-icons-alphanumeric/112718-glowing-purple-neon-icon-alphanumeric-vertical-line.png" alt="HTML tutorial" style="width:92px;height:52px;border:0;">
