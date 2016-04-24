@@ -22,12 +22,11 @@ class description(models.Model):
     owner = models.ForeignKey(User, related_name="band_name", primary_key = True)
     blurb = models.CharField(max_length=100)
 
-
-class venueevents(models.Model):
+class artistevents(models.Model):
     owner = models.ForeignKey(User, related_name="venue_name", unique = False)
     event_name = models.CharField(max_length = 100)
     event_description = models.CharField(max_length = 200)
     date = models.DateField()
     price = models.CharField(max_length = 20)
-    applicants = models.ManyToManyField(User, related_name="applicants")
+    interested = models.ManyToManyField(User, related_name="applicants")
     chosen = models.ForeignKey(User, related_name="chosen", unique = False, null = True)

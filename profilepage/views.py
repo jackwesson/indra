@@ -17,7 +17,7 @@ from django.contrib.sessions.models import Session
 from django.http import HttpResponse
 
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm, UploadEventForm
-from .models import Profile, music, description, venueevents
+from .models import Profile, music, description, artistevents
 from displaypage.models import connection
 
 
@@ -111,7 +111,7 @@ def index(request, person = ''):
             # x = event.objects.filter(owner=userobj)
             
             try:
-                x = venueevents.objects.all().filter(owner=userobj)
+                x = artistevents.objects.all().filter(owner=userobj)
                 # print(x)
                 allevents = list(x)
                 yesevents = True
@@ -142,7 +142,7 @@ def index(request, person = ''):
         pic = False 
         try: 
             
-            x = venueevents.objects.all().filter(owner=userobj)
+            x = artistevents.objects.all().filter(owner=userobj)
             # print(x)
             allevents = list(x)
             yesevents = True
@@ -289,7 +289,7 @@ def addevent(request):
         uid = request.session['mid']
         userobj = User.objects.get(id = uid)
         
-        new_event = venueevents(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
+        new_event = artistevents(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
         new_event.save()
         request.session['somethingdone'] = 'yes'
         
@@ -305,7 +305,7 @@ def deleteconnection(request):
 
 def deleteevent(request):
     event = request.POST['event_id']
-    eventide = venueevents.objects.get(id = event)
+    eventide = artistevents.objects.get(id = event)
     eventide.delete()
     return index(request)
     

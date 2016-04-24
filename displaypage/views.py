@@ -18,7 +18,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from models import connection
 
-from profilepage.models import venueevents
+from profilepage.models import artistevents
 
 from django.http import HttpResponse
 
@@ -48,7 +48,7 @@ def index(request):
     
     try: 
         print ('please make it here')
-        events = venueevents.objects.all()
+        events = artistevents.objects.all()
         hoop = list(events)
         print('did it make it here?')
         context = {'artists': content, 'events': events}
@@ -65,9 +65,9 @@ def index(request):
         
 def loadprofile(request):
     from profilepage.views import index as index2
-    print ()
     if request.method == "POST":
         usera = request.POST.get('artistprofile')
+        print(usera)
         
         usera = User.objects.get(id = usera)
         return index2(request, usera)
@@ -108,8 +108,9 @@ def applyevent(request):
     print (userobj)
     
     event = request.POST['event_id']
-    eventide = venueevents.objects.get(id = event)
-    eventide.applicants.add(userobj)
+    eventide = artistevents.objects.get(id = event)
+    eventide.interested.add(userobj)
+    # new_Task.collaborators.add(coll)
     eventide.save()
     
     return redirect('/profilepage')
