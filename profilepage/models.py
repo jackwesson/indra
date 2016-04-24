@@ -29,3 +29,5 @@ class venueevents(models.Model):
     event_description = models.CharField(max_length = 200)
     date = models.DateField()
     price = models.CharField(max_length = 20)
+    applicants = models.ManyToManyField(User, related_name="applicants")
+    chosen = models.ForeignKey(User, related_name="chosen", unique = False, null = True)

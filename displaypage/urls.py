@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'maxlogout/$', views.maxlogout, name = 'maxlogout'),
     url(r'^search/', views.search, name = 'search'),
     url(r'loadprofile/connect', views.connect, name = 'connect'),
+    url(r'loadprofile/applyevent', views.applyevent, name = 'applyevent'),
 ]

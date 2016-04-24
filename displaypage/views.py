@@ -65,6 +65,7 @@ def index(request):
         
 def loadprofile(request):
     from profilepage.views import index as index2
+    print ()
     if request.method == "POST":
         usera = request.POST.get('artistprofile')
         
@@ -79,21 +80,7 @@ def maxlogout(request):
 def search(request):
     request.session['search'] = request.POST['usertype']
     return index(request)
-    # if request.method == 'POST':
-    #     if request.POST['usertype'] == 'venue':
-    #         artists = User.objects.filter(first_name = "venue")
-    #         context = {'artists': artists}
-    #         return render(request, 'display.html', context)
-    #     elif request.POST['usertype'] == 'entertainer':
-    #         artists = User.objects.filter(first_name = "entertainer")
-    #         context = {'artists': artists}
-    #         return render(request, 'display.html', context)
-    #     else:    
-    #         artists = User.objects.all()
-    #         context = {'artists': artists}
-    #         return render(request, 'display.html', context)
-    # # print(request.POST['usertype'])
-    # return index(request, request.POST['usertype'])
+    
 
 def connect(request):
     uid = request.session['mid']
@@ -111,6 +98,19 @@ def connect(request):
     # new_connection.originator.add(userobj) 
     # new_connection.save()
     print(new_connection.originator)
+    
+    return redirect('/profilepage')
+
+def applyevent(request):
+    uid = request.session['mid']
+    userobj = User.objects.get(id=uid)
+    print ('this is the originator')
+    print (userobj)
+    
+    event = request.POST['event_id']
+    eventide = venueevents.objects.get(id = event)
+    eventide.applicants.add(userobj)
+    eventide.save()
     
     return redirect('/profilepage')
     

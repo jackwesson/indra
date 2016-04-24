@@ -110,11 +110,14 @@ def index(request, person = ''):
             print ('should definitely get here')
             # x = event.objects.filter(owner=userobj)
             
-            x = venueevents.objects.all().filter(owner=userobj)
-            # print(x)
-            allevents = list(x)
-            yesevents = True
-            print ('definitely to here as well')
+            try:
+                x = venueevents.objects.all().filter(owner=userobj)
+                # print(x)
+                allevents = list(x)
+                yesevents = True
+                print ('definitely to here as well')
+            except:
+                pass
             
             # except:
             #     pass
