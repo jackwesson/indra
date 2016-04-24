@@ -17,10 +17,14 @@ from django.contrib.sessions.models import Session
 from django.http import HttpResponse
 
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm, UploadEventForm
-from .models import Profile, music, description, event
+from .models import Profile, music, description, events
+from displaypage.models import connection
 
 
 def index(request, person = ''):
+    if request.method == "POST":
+        return redirect('/profilepage/')
+    
     if person == '':
         user = request.user
         
@@ -34,6 +38,7 @@ def index(request, person = ''):
         pic = False 
         foryou = False
         youon = False
+        event = False
         
         try: 
             you = description.objects.get(target=userobj)
@@ -57,8 +62,7 @@ def index(request, person = ''):
             from displaypage.models import connection
             y = connection.objects.filter(Q(target=userobj))
             toyou = y
-            print ('should not be this')
-            print (toyou)
+            
             foryou = True
         except description.DoesNotExist: 
             pass
@@ -67,6 +71,14 @@ def index(request, person = ''):
             pic = True
         except Profile.DoesNotExist:
             pass
+        # try:
+        #     allevents = events.objects.filter(owner=userobj)
+        #     event = True
+        # except 
+        #     pass
+        # if event == True:
+        #     passing['events'] = allevents
+        
         
         if blurb == True:
             passing['blurb'] =  yourblurb
@@ -76,26 +88,35 @@ def index(request, person = ''):
             passing['pic'] =  yourpic
         sourcelist = []
         if foryou == True:
-            print('1')
             sourcelist = sourcelist + list(toyou)
-            print(sourcelist)
+    
         if youon == True:
-            print('2')
+            
             sourcelist = sourcelist + list(fromyou)
         if len(sourcelist) > 0:
             print('3')
             passing['connects'] = sourcelist
+        
+        print(userobj.first_name)
+        
         if userobj.first_name == 'venue':
             passing['eventform'] = UploadEventForm()
             yesevents = False
-            try: 
-                x = events.objects.get(owner=userobj)
-                allevents = x
-                yesevents = True
-            except:
-                pass
+            # try: 
+            print ('should definitely get here')
+            # x = event.objects.filter(owner=userobj)
+            
+            x = events.objects.all().filter(owner=userobj)
+            # print(x)
+            allevents = list(x)
+            yesevents = True
+            print ('definitely to here as well')
+            
+            # except:
+            #     pass
+            # print(x.event_description)
             if yesevents == True:
-                passing['event'] = allevents
+                passing['events'] = x
                 
         
         print (passing)
@@ -232,24 +253,25 @@ def loaddisplay(request):
 def addevent(request):
     if request.method == "POST":
         eventname = request.POST.get('eventname')
-        date = request.POST.get('date')
+        date = request.POST.get('eventdate')
         print (date)
         price = request.POST.get('price')
         print ('this should be price')
         print (price)
-        event_desc = request.POST.get('event_desc')
+        event_desc = request.POST.get('eventdesc')
+        print(event_desc)
         uid = request.session['mid']
-        userobj = User.objets.get(id = uid)
+        userobj = User.objects.get(id = uid)
         
-        new_event = event(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
+        new_event = events(owner = userobj, event_name = eventname, date = date, price = price, event_description = event_desc)
         new_event.save()
         
-        redirect('/profilepage')
+        return index(request)
         
 
 def deleteconnection(request):
     connect = request.POST['connect_id']
     connectide = connection.objects.get(id = connect)
     connectide.delete()
-    redirect('/profilepage')
+    return index(request)
     

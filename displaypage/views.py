@@ -18,7 +18,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from models import connection
 
-from profilepage.models import event
+from profilepage.models import events
 
 from django.http import HttpResponse
 
@@ -47,15 +47,17 @@ def index(request):
     context = {'artists': content}
     
     try: 
+        print ('please make it here')
         events = events.objects.all()
-        hoop = events
-        context = {'artists': content, 'events': hoop}
+        hoop = list(events)
+        print('did it make it here?')
+        context = {'artists': content, 'events': events}
     except:
         pass
     
     
     # render can only take three inputs, if you want to pass multiple inputs you have to combine them into 1, (in this case context)
-    
+    print (context)
     return render(request, 'display.html', context)
         
     
