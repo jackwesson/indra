@@ -638,7 +638,7 @@ body{
 	background-image: url(http://previews.123rf.com/images/aodaodaod/aodaodaod1307/aodaodaod130701273/21097137-purple-sofa-leather-background-Stock-Photo-background-boutique.jpg);
 	background-size: cover;
 	-webkit-filter: blur(30px);
-	z-index: 0;
+	z-index: -50000;
 }
 
 .grad{
@@ -963,6 +963,77 @@ body{
 .logout input[type=button]:focus{
 	outline: none;
 }
+.bookings{
+
+	position: absolute;
+	bottom: calc(0%);
+	left: calc(5%);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.bookings input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+.requests{
+
+	position: absolute;
+	bottom: calc(0%);
+	left: calc(5%);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.requests input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+.eventupload{
+
+	position: absolute;
+	bottom: calc(0%);
+	left: calc(5%);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.eventupload input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+
 .connections{
 	position: absolute;
 	bottom: calc(0%);
@@ -1521,6 +1592,8 @@ body{
 		
 		
 		{% if yes %}
+    		
+    		<div class = blurb>
     		<form name = "profile_blurb" action="/profilepage/addblurb/" method="post">
     		{% csrf_token %}
     		<div class="entry">
@@ -1535,17 +1608,21 @@ body{
     		</div>
     		</form>
     			<br>
+    		<div class = "propic">
     		<form name = "profile_upload" action="/profilepage/addpic/" method="post" enctype="multipart/form-data">
     		{% csrf_token %}
-    		<div class="propic">
+    		
     						<input type="file" name="pic" id="pic" value = "Enter Profile Picture" accept="image/*"  />
     	   					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>
     		</div>
+    		<div class= eventupload>
     		</form>
     	    {% if venue %}
     		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
         		{% csrf_token %}
-        		<div class="eventform">
+        	</div>
+        	
+        	
         		        <input type="text" placeholder="eventname" name="eventname"><br><br>
         		        <input type="text" placeholder="eventdesc" name="eventdesc"><br><br>
         				<input type="date" placeholder="eventdate" name= "eventdate"><br><br>
@@ -1580,27 +1657,6 @@ body{
     		    
     		{% endif %}
     		
-    		
-    		
-    		{% if connects %}
-                
-                <h2>Here are your connections! </h2>
-                <div class = 'connections'>
-                <ul>
-                {% for connect in connects %}
-                    <li>To: {{ connect.target }}</li>
-                    <li>From: {{ connect.originator }}</li>
-                    <form method="POST" action = "deleteconnection/">
-                        {% csrf_token %}
-                        <input type = "hidden" name = "connect_id" value = {{connect.id}}> 
-                        <input type="submit" value="Delete the connection!" class= 'btn' />
-                    </form>
-              
-            {% endfor %}
-                </ul>
-                </div>
-
-            {% endif %}
             
             {% if events %}
     		    <h2>Here are your scheduled events!</h2>
