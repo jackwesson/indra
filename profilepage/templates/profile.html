@@ -19,7 +19,7 @@
     <!--<a href="javascript:void(0);" class="follow">-->
     <!--  Follow {{ user.username }}-->
     <!--</a>-->
-  </div>
+  <!--</div>-->
   <h1>{{ user.username }} </h1>
 </header>
   <head>
@@ -123,10 +123,10 @@ header {
 }
 
 figure.profile-banner {
-  left:     0;
+  left:     -4%;
   overflow: hidden;
   position: absolute;
-  top:      0;
+  top:      -4.1%;
   z-index:  1;
 }
 
@@ -1034,7 +1034,7 @@ body{
 .logout{
 	position: absolute;
 	top: calc(0%);
-	right: calc(0%);
+	right: calc(-17%);
 	height: 150px;
 	width: 350px;
 	padding: 10px;
@@ -1308,7 +1308,7 @@ body{
 .loaddisplay{
 	position: absolute;
 	top: calc(10%);
-	left: calc(5%);
+	left: calc(0%);
 	height: 150px;
 	width: 350px;
 	padding: 10px;
@@ -1869,13 +1869,13 @@ body{
 	        {% endif %}}
     		
     	{% else %}
-    	    <form name = "connect" action="/displaypage/loadprofile/connect/" method="post" enctype="multipart/form-data">
-    		{% csrf_token %}
-    		<div class="connectwith">
-    		    <input type="submit" value="Make a connection" class= 'btn' /><br>
+    	 <!--   <form name = "connect" action="/displaypage/loadprofile/connect/" method="post" enctype="multipart/form-data">-->
+    		<!--{% csrf_token %}-->
+    		<!--<div class="connectwith">-->
+    		<!--    <input type="submit" value="Make a connection" class= 'btn' /><br>-->
     				
-    		</div>
-    		</form>
+    		<!--</div>-->
+    		<!--</form>-->
 		
     		{% if events %}
     		    
