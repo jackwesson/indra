@@ -27,6 +27,11 @@ SECRET_KEY = 'vm8)^=*oo00iys5#%48o$k3^161k&2&xu8+4hu_q%ys=gzl-z('
 DEBUG = True
 
 ALLOWED_HOSTS = []
+EMAIL_HOST = "smtp@gmail.com"
+EMAIL_HOST_USER = "yaleindramusicteam@gmail.com"
+EMAIL_HOST_PASSWORD = "cosmicsnow"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 
 # Application definition

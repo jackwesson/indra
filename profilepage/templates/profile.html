@@ -1608,9 +1608,10 @@
             {% endif %}
             
             {% if events %}
+    		    <h2>Here are your scheduled events!</h2>
     		    {% for event in events %}
     		    <div class = event>
-    		    <h2>Here is your scheduled event!</h2>
+    		    
     		    <ul>
     		        <form method="POST" action = "deleteevent/">
                         {% csrf_token %}

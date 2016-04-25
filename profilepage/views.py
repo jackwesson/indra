@@ -321,13 +321,17 @@ def selectapplicant(request):
     
     event = artistevents.objects.get(id=eventid)
     event.chosen = applicant
+    to_email = ['warren.buhler@yale.edu']
+    from_email = 'yaleindramusicteam@gmail.com'
+    
+    # send_mail('Someone just booked an event', 'yaha', 'yaleindramusicteam@gmail.com', to_email, fail_silently= False)
     
     for x in event.interested.all():
         event.interested.remove(x)
     
     
     event.save()
-    # send_mail('Someone just booked an event', 'yaha', 'warren.buhler@yale.edu', 'warrenbuhler7@gmail.com')
+    
     
     request.session['somethingdone'] = 'yes'
     return index(request)
