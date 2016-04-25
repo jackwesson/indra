@@ -1038,10 +1038,10 @@ body{
 
 .logout{
 	position: absolute;
-	top: calc(0%);
-	right: calc(-17%);
-	height: 150px;
-	width: 350px;
+	top: calc(-5%);
+	right: calc(0%);
+	height: 10px;
+	width: 100px;
 	padding: 10px;
 	z-index: 2;
 }
@@ -1137,6 +1137,7 @@ body{
 .logout input[type=button]:focus{
 	outline: none;
 }
+
 .bookings{
 
 	position: absolute;
@@ -1912,21 +1913,22 @@ body{
     	    {% endif %}}
 	    {% endif %}
 		
-		<a href="https://www.google.com/webhp?hl=en" class = "icon">
- 			<img src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glowing-purple-neon-icons-alphanumeric/112718-glowing-purple-neon-icon-alphanumeric-vertical-line.png" alt="HTML tutorial" style="width:92px;height:52px;border:0;">
-		</a>
-		<div class="logout
+		<!--<a href="https://www.google.com/webhp?hl=en" class = "icon">-->
+ 	<!--		<img src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glowing-purple-neon-icons-alphanumeric/112718-glowing-purple-neon-icon-alphanumeric-vertical-line.png" alt="HTML tutorial" style="width:92px;height:52px;border:0;">-->
+		<!--</a>-->
+		<div class="logout">
 		<form name = "logout" action="/profilepage/maxlogout/" method="post">
 		{% csrf_token %}
 				<br> <input type="submit" value="Logout" class= 'btn' /><br>
-		</div>
 		</form>
+		</div>
+		
 		<div class="loaddisplay">
 		<form name = "loaddisplay" action="/profilepage/loaddisplay/" method="post">
 		{% csrf_token %}
-		
 				<br> <input type="submit" value="Load Display" class= 'btn' /><br>
-		</div>
+		
 		</form>
+		</div>
   </body>
 </html>
