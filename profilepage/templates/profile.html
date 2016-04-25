@@ -1406,10 +1406,11 @@ body{
 .loaddisplay input[type=button]:focus{
 	outline: none;
 }
+/*moved left to 50% from 5*/
 .event{
 	position: absolute;
-	bottom: calc(0%);
-	left: calc(5%);
+	bottom: calc(15%);
+	left: calc(75%);
 	height: 150px;
 	width: 350px;
 	padding: 10px;
@@ -1510,7 +1511,7 @@ body{
 /*from here*/
 .eventform{
 	position: absolute;
-	bottom: calc(0%);
+	bottom: calc(20%);
 	left: calc(5%);
 	height: 150px;
 	width: 350px;
@@ -1830,9 +1831,10 @@ body{
     		
             
             {% if events %}
+    		    <div class = event>
     		    <h2>Here are your scheduled events!</h2>
     		    {% for event in events %}
-    		    <div class = event>
+    		    
     		    <ul>
     		        <form method="POST" action = "deleteevent/">
                         {% csrf_token %}
@@ -1861,8 +1863,9 @@ body{
 	                {% endif %}
     		        
     		    </ul>
-    		    </div>
+    		   
     		    {% endfor %}
+    		     </div>
 	        {% endif %}}
     		
     	{% else %}
@@ -1875,16 +1878,17 @@ body{
     		</form>
 		
     		{% if events %}
+    		    
     		    {% for event in events %}
     		    <div class = event>
-    		    <h2>Here is the scheduled event!</h2>
+    		    <h2>Here are the scheduled events!</h2>
     		    <ul>
     		        {% if event.chosen %}
 		                <l> Event name: {{ event.event_name }}</l><br>
         		        <l> Event Description: {{ event.event_description }}</l><br>
         		        <l> Event date: {{ event.date }} </l><br>
         		        <l> Estimated price: {{ event.price }}</l><br>
-		                They selectected: {{ event.chosen }}
+		                <l> They selectected: {{ event.chosen }} </l><br>
 	                {% else %}
         		        <form method="POST" action = "/displaypage/loadprofile/applyevent/">
                             {% csrf_token %}
