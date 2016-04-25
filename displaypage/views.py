@@ -55,17 +55,17 @@ def index(request):
     context = {'artists': content}
     
     try: 
-        print ('please make it here')
+        
         events = artistevents.objects.all()
         hoop = list(events)
-        print('did it make it here?')
+        
         context = {'artists': content, 'events': events}
     except:
         pass
     
     
     # render can only take three inputs, if you want to pass multiple inputs you have to combine them into 1, (in this case context)
-    print (context)
+    # print (context)
     return render(request, 'display.html', context)
         
     
@@ -75,9 +75,10 @@ def loadprofile(request):
     from profilepage.views import index as index2
     if request.method == "POST":
         usera = request.POST.get('artistprofile')
-        print(usera)
-        
+        print (usera)
         usera = User.objects.get(id = usera)
+        
+        print (usera)
         return index2(request, usera)
         
         # django templates bulletins url

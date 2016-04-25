@@ -615,17 +615,20 @@ body {
 			<figure class="snip1336">
 			  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg" alt="sample87" />
 			  <figcaption>
-				  {% if artist.first_name == "entertainer" %}
-				  	<img src="http://dreamatico.com/data_images/guitar/guitar-6.jpg" alt="profile-sample4" class="profile" />
-			      {% else %}
-			      	<img src="http://www.delkwoodgrill.net/wp-content/uploads/2016/01/SetWidth1700-Kempinski-Hotel-Bristol-Berlin-Gastronomie-Bristol-Bar.jpg" alt="profile-sample4" class="profile" />
-			      {% endif %}
-			    <h2>{{ artist.username }}<span>{{ artist.first_name }}</span></h2>
+				  <!--<form method="POST" action = "loadprofile/">-->
+			  	{% if artist.first_name == "entertainer" %}
+			  		<img src="http://dreamatico.com/data_images/guitar/guitar-6.jpg" alt="profile-sample4" class="profile" />
+		      	{% else %}
+		      		<img src="http://www.delkwoodgrill.net/wp-content/uploads/2016/01/SetWidth1700-Kempinski-Hotel-Bristol-Berlin-Gastronomie-Bristol-Bar.jpg" alt="profile-sample4" class="profile" />
+		      	{% endif %}
+			    <h2>{{ artist.username }}<span>{{ artist.id }}</span></h2>
 			    <form method="POST" action = "loadprofile/">
 			    <!--There was originally an "a href" link for the css-->
-	            {% csrf_token %}
-	            <input type = "hidden" name = "artistprofile" value = {{artist.id}}> 
-	            <input type="submit" value="Check them out!" class= 'btn' />
+	            	{% csrf_token %}
+	            <!--<input type = "hidden" name = "artistprofile" value = {{ artist.id }}> -->
+		            <input type = "hidden" name = "artistprofile" value = {{artist.id}}> 
+		            <input type="submit" value="Check them out!" class= 'btn' />
+		       </form>
 			  </figcaption>
 			</figure>
 			</li>

@@ -81,7 +81,6 @@ def index(request, person = ''):
             passing['venue'] = True
             yesevents = False
             # try: 
-            print ('should definitely get here')
             # x = event.objects.filter(owner=userobj)
             
             try: 
@@ -120,11 +119,16 @@ def index(request, person = ''):
     else:
         
         user = person
+        print ('this is the user')
+        print (user)
         
         userobj = User.objects.get(username=user)
+        print ('this is the userobj')
+        print (userobj)
         request.session['id2'] = userobj.id
         
         passing = {'yes': False} 
+        passing['user'] = userobj
         
         blurb = False
         pic = False 
@@ -157,8 +161,11 @@ def index(request, person = ''):
             pass
         
         try:
+            print ('look here')
             you2 = Profile.objects.get(owner=userobj)
-            
+            print ('should see this')
+            pic = True
+            you2 = Profile.objects.get(owner=userobj)
             pic = True
         except Profile.DoesNotExist:
             pass
