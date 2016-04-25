@@ -324,6 +324,13 @@ li a:hover {
 		</form>
 </body>
 
+<form name = "loadownprofile" action="/displaypage/loadownprofile/" method="post">
+		{% csrf_token %}
+		<div class="loadownprofile">
+				<br> <input type="submit" value="Load Profile" class= 'btn' /><br>
+		</div>
+		</form>
+</body>
 
 <!--http://stackoverflow.com/questions/14728319/send-data-from-template-to-a-view-django-->
 

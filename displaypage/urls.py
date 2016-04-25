@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^loadprofile/$', views.loadprofile, name = 'loadprofile'),
     url(r'maxlogout/$', views.maxlogout, name = 'maxlogout'),
     url(r'^search/', views.search, name = 'search'),
+    url(r'^loadownprofile/$', views.loadownprofile, name = 'loadownprofile'),
     url(r'loadprofile/connect', views.connect, name = 'connect'),
     url(r'loadprofile/applyevent', views.applyevent, name = 'applyevent'),
 ]

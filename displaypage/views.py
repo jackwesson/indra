@@ -125,4 +125,6 @@ def applyevent(request):
     eventide.save()
     
     return redirect('/profilepage')
-    
+
+def loadownprofile(request):
+    return redirect('/profilepage')
