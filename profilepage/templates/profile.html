@@ -34,12 +34,12 @@
     <header>
     
          <!--here’s the avatar -->
-   <!--     <a href="">-->
-   <!--         {% if pic %}-->
-			<!--	<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">-->
-			<!--{% endif %}	-->
-   <!--         <img src="http://orig08.deviantart.net/ff48/f/2011/301/d/0/profile_picture_by_lucriogenics-d4e9yxs.jpg" />-->
-   <!--     </a>-->
+        <a href="">
+            {% if pic %}
+				<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">
+			{% endif %}	
+            <!--<img src="http://orig08.deviantart.net/ff48/f/2011/301/d/0/profile_picture_by_lucriogenics-d4e9yxs.jpg" />-->
+        </a>
         
          <!--the username -->
         <h1>{{ user.username }}</h1>
@@ -111,7 +111,7 @@ h1 {
   display: block;
   font-size: 50px;
   margin: 25px auto 0;
-  width: 975px;
+  width: 155px;
 }
 
 h1>small {
@@ -1784,21 +1784,20 @@ body{
     				
     		</form>
     		</div>
-    			<br>
-    		<!--<div class = "propic">-->
-    		<!--<form name = "profile_upload" action="/profilepage/addpic/" method="post" enctype="multipart/form-data">-->
-    		<!--{% csrf_token %}-->
+    		<br>
+    		<div class = "propic">
+        		<form name = "profile_upload" action="/profilepage/addpic/" method="post" enctype="multipart/form-data">
+        		{% csrf_token %}
+    				<input type="file" name="pic" id="pic" value = "Enter Profile Picture" accept="image/*"><br>
+       				<input type="submit" value="Upload ProPic!" class= 'btn'><br>
+        		</form>
+    		</div>
     		
-    		<!--				<input type="file" name="pic" id="pic" value = "Enter Profile Picture" accept="image/*"  />-->
-    	 <!--  					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>-->
-    		<!--</form>-->
-    		<!--</div>-->
     		{% if venue %}
     		<div class= eventform>
     		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
         		{% csrf_token %}
-        	
-    
+        
         		        <input type="text" placeholder="Event Name" name="eventname"><br><br>
         		        <input type="text" placeholder="Event Description" name="eventdesc"><br><br>
         				<input type="date" placeholder="Event Date" name= "eventdate"><br><br>

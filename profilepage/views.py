@@ -49,20 +49,23 @@ def index(request, person = ''):
         
         # get any descriptions
         try: 
-            print ('pleasepleaseplease')
             you = description.objects.get(owner=userobj)
             yourblurb = you.blurb
-            print (yourblurb)
             blurb = True
             
         except:
             pass
         
-        try:
+        # try:
+        try: 
             you2 = Profile.objects.get(owner=userobj)
             pic = True
-        except Profile.DoesNotExist:
+        except:
             pass
+        
+            
+        # except Profile.DoesNotExist:
+        #     pass
         
         if blurb == True:
             passing['blurb'] =  yourblurb
@@ -70,17 +73,6 @@ def index(request, person = ''):
         if pic == True:
             yourpic = you2.profilepicture
             passing['pic'] =  yourpic
-            
-        # sourcelist = []
-        # if foryou == True:
-        #     sourcelist = sourcelist + list(toyou)
-    
-        # if youon == True:
-            
-        #     sourcelist = sourcelist + list(fromyou)
-        # if len(sourcelist) > 0:
-        #     print('3')
-        #     passing['connects'] = sourcelist
         
         print(userobj.first_name)
         
@@ -197,14 +189,29 @@ def index(request, person = ''):
 def addpic(request):
     if request.method == 'POST':
         
-        # form = UploadPictureForm(request.POST, request.FILES)
         pic = request.FILES['pic']
         
-        current_user = request.user
-        obj, created = Profile.objects.update_or_create(owner=current_user,
-                                                        defaults = {"profilepicture" : pic})
-       
-        form = UploadPictureForm()
+        uid = request.session['mid']
+        userobj = User.objects.get(id=uid)
+        
+        print (userobj)
+        
+        print (pic)
+        try:
+            obj = Profile.objects.get(owner = userobj)
+            
+            obj.profilepicture = pic
+            obj.save()
+            
+        except:
+            
+            obj = Profile(owner=userobj, profilepicture = pic)
+            obj.save()
+            
+        # obj, created = Profile.objects.update_or_create(owner=current_user,
+        #                                                 defaults = {"profilepicture" : pic})
+        # obj.save()
+        print (obj.owner)
     # return HttpResponse('stuff happened')
         request.session['somethingdone'] = 'yes'
         return index(request)
@@ -322,3 +329,31 @@ def loadartist(request):
     applicantid = request.Post['app_id']
     usera = User.objects.get(id = applicantid)
     return index(request, usera)
+    
+    
+    
+ # sourcelist = []
+        # if foryou == True:
+        #     sourcelist = sourcelist + list(toyou)
+    
+        # if youon == True:
+            
+        #     sourcelist = sourcelist + list(fromyou)
+        # if len(sourcelist) > 0:
+        #     print('3')
+        #     passing['connects'] = sourcelist
+        
+
+# if request.method == 'POST':
+        
+#         pic = request.FILES['pic']
+        
+#         current_user = request.user
+#         obj, created = Profile.objects.update_or_create(owner=current_user,
+#                                                         defaults = {"profilepicture" : pic})
+       
+               
+#         form = UploadPictureForm()
+#     # return HttpResponse('stuff happened')
+#         request.session['somethingdone'] = 'yes'
+#         return index(request)
