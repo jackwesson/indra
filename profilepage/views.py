@@ -39,6 +39,8 @@ def index(request, person = ''):
        
         passing = {'yes': True} 
         
+        passing['user'] = userobj
+        
         blurb = False
         pic = False 
         foryou = False
@@ -47,36 +49,15 @@ def index(request, person = ''):
         
         # get any descriptions
         try: 
-            you = description.objects.get(target=userobj)
+            print ('pleasepleaseplease')
+            you = description.objects.get(owner=userobj)
             yourblurb = you.blurb
+            print (yourblurb)
             blurb = True
             
         except:
             pass
         
-        # get any connections
-        # try: 
-        #     from displaypage.models import connection
-        #     x = description.objects.filter(Q(originator=userobj))
-        #     fromyou = x 
-        #     print ('should be this')
-        #     print (fromyou)
-        #     youon = True
-            
-        # except: 
-        #     pass
-        
-        # # get all 
-        # try: 
-        #     from displaypage.models import connection
-        #     y = connection.objects.filter(Q(target=userobj))
-        #     toyou = y
-            
-        #     foryou = True
-        # except description.DoesNotExist: 
-        #     pass
-        
-        # get the profile picture
         try:
             you2 = Profile.objects.get(owner=userobj)
             pic = True

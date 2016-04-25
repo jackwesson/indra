@@ -9,18 +9,18 @@
   <figure class="profile-picture" 
     style="background-image: url('http://unsplash.it/150/150')">
   </figure>
-  <div class="profile-stats">
-    <ul>
-      <li>13    <span>Projects</span></li>
-      <li>1,354 <span>Commits</span></li>
-      <li>32    <span>Following</span></li>
-      <li>324   <span>Followers</span></li>
-    </ul>
-    <a href="javascript:void(0);" class="follow">
-      Follow Nick
-    </a>
+  <!--<div class="profile-stats">-->
+  <!--  <ul>-->
+  <!--    <li>13    <span>Projects</span></li>-->
+  <!--    <li>1,354 <span>Commits</span></li>-->
+  <!--    <li>32    <span>Following</span></li>-->
+  <!--    <li>324   <span>Followers</span></li>-->
+  <!--  </ul>-->
+    <!--<a href="javascript:void(0);" class="follow">-->
+    <!--  Follow {{ user.username }}-->
+    <!--</a>-->
   </div>
-  <h1>Nick Dobie <small>nrdobie</small></h1>
+  <h1>{{ user.username }} </h1>
 </header>
   <head>
       
@@ -35,14 +35,17 @@
     
          <!--here’s the avatar -->
         <a href="">
+            {% if pic %}
+				<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">
+			{% endif %}	
             <img src="http://orig08.deviantart.net/ff48/f/2011/301/d/0/profile_picture_by_lucriogenics-d4e9yxs.jpg" />
         </a>
         
          <!--the username -->
-        <h1>Jack</h1>
+        <h1>{{ user.username }}</h1>
         
          <!--and role or location -->
-        <h2>Rock, Blues, and Classical Expert</h2>
+        <h2>{{ blurb }}</h2>
     
     </header>
     <div class= "profile-bio">
@@ -935,8 +938,8 @@ body{
 	padding: 10px;
 	z-index: 2;
 }
-
-.propic input[type=text]{
+/*originally type = text*/
+.propic input[type=file]{
 	width: 250px;
 	height: 30px;
 	background: transparent;
@@ -948,7 +951,7 @@ body{
 	font-weight: 400;
 	padding: 4px;
 }
-
+/*originally type = password*/
 .propic input[type=password]{
 	width: 250px;
 	height: 30px;
@@ -1301,9 +1304,10 @@ body{
 .connections input[type=button]:focus{
 	outline: none;
 }
+/*switched bottome to top here*/
 .loaddisplay{
 	position: absolute;
-	bottom: calc(0%);
+	top: calc(10%);
 	left: calc(5%);
 	height: 150px;
 	width: 350px;
@@ -1527,7 +1531,7 @@ body{
 	padding: 4px;
 }
 
-.eventform input[type=password]{
+.eventform input[type=date]{
 	width: 250px;
 	height: 30px;
 	background: transparent;
@@ -1781,12 +1785,12 @@ body{
     						<input type="file" name="pic" id="pic" value = "Enter Profile Picture" accept="image/*"  />
     	   					<br> <input type="submit" value="Upload ProPic!" class= 'btn' /><br>
     		</div>
-    		<div class= eventupload>
     		</form>
-    	    {% if venue %}
+    		{% if venue %}
+    		<div class= eventform>
     		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
         		{% csrf_token %}
-        	</div>
+        	
     
         		        <input type="text" placeholder="eventname" name="eventname"><br><br>
         		        <input type="text" placeholder="eventdesc" name="eventdesc"><br><br>
@@ -1804,8 +1808,9 @@ body{
                     {% for book in booked %}
                         <li>You have been selected for: "{{ book.event_name }}" on {{ book.date }} at {{ book.owner }}</li> <br>
                     {% endfor %}
+                     </div>
                 {% endif %}
-                    </div>
+                   
                 {% if requested %}
         		    <h2>Here are the events you have requested! </h2>
                     <div class = 'requests'>
@@ -1814,8 +1819,9 @@ body{
                         <li>You have applied for: "{{ request.event_name }}" on {{ request.date }} at {{ request.owner }}  </li>
                   
                     {% endfor %}
+                     </div>
                 {% endif %}
-                    </div>
+                    
                 </ul>
                
     		    
@@ -1827,7 +1833,6 @@ body{
     		    <h2>Here are your scheduled events!</h2>
     		    {% for event in events %}
     		    <div class = event>
-    		    
     		    <ul>
     		        <form method="POST" action = "deleteevent/">
                         {% csrf_token %}
@@ -1901,15 +1906,16 @@ body{
 		<a href="https://www.google.com/webhp?hl=en" class = "icon">
  			<img src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/glowing-purple-neon-icons-alphanumeric/112718-glowing-purple-neon-icon-alphanumeric-vertical-line.png" alt="HTML tutorial" style="width:92px;height:52px;border:0;">
 		</a>
+		<div class="logout
 		<form name = "logout" action="/profilepage/maxlogout/" method="post">
 		{% csrf_token %}
-		<div class="logout">
 				<br> <input type="submit" value="Logout" class= 'btn' /><br>
 		</div>
 		</form>
+		<div class="loaddisplay">
 		<form name = "loaddisplay" action="/profilepage/loaddisplay/" method="post">
 		{% csrf_token %}
-		<div class="loaddisplay">
+		
 				<br> <input type="submit" value="Load Display" class= 'btn' /><br>
 		</div>
 		</form>
