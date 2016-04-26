@@ -79,6 +79,7 @@ def loadprofile(request):
         usera = User.objects.get(id = usera)
         
         print (usera)
+        
         return index2(request, usera)
         
         # django templates bulletins url

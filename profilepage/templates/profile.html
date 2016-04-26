@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 
-
 <html >
 <header>
   <figure class="profile-banner">
@@ -26,48 +25,53 @@
       
     <meta charset="UTF-8">
     <title>Indra</title>
-	
+    <aside class = "profile-card">
+    <a href="">
+        {% if pic %}
+			<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">
+		{% endif %}	
+    </a>
+    </aside>
 <!-- this is the markup. you can change the details (your own name, your own avatar etc.) but don’t change the basic structure! -->
 
-<aside class="profile-card">
+<!--<aside class="profile-card">-->
 
-    <header>
+<!--    <header>-->
     
          <!--here’s the avatar -->
-        <a href="">
-            {% if pic %}
-				<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">
-			{% endif %}	
-            <!--<img src="http://orig08.deviantart.net/ff48/f/2011/301/d/0/profile_picture_by_lucriogenics-d4e9yxs.jpg" />-->
-        </a>
+<!--        <a href="">-->
+<!--            {% if pic %}-->
+<!--				<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">-->
+<!--			{% endif %}	-->
+<!--        </a>-->
         
          <!--the username -->
-        <h1>{{ user.username }}</h1>
+<!--        <h1>{{ user.username }}</h1>-->
         
          <!--and role or location -->
         <!--<h2>{{ blurb }}</h2>-->
     
-    </header>
-    <div class= "profile-bio">
-		<p>
+<!--    </header>-->
+<!--    <div class= "profile-bio">-->
+<!--		<p>-->
 		<!--{% if blurb %}-->
 		<!--	{{ blurb }}-->
 		<!--{% endif %}-->
-		</p>
+<!--		</p>-->
      <!--bit of a bio; who are you? -->
-    <div class="profile-bio">
+<!--    <div class="profile-bio">-->
     
-        {% if blurb %}
+<!--        {% if blurb %}-->
 			<!--<p>Book Me! Here are some links to my soundcloud page, let me know what you think</p>-->
-			<p> {{ blurb }} </p>
+<!--			<p> {{ blurb }} </p>-->
 			<!--{{ blurb }}-->
-		{% endif %}
+<!--		{% endif %}-->
         <!--<p>Book Me! Here are some links to my soundcloud page, let me know what you think</p>-->
     
-    </div>
+<!--    </div>-->
 
      <!--some social links to show off -->
-    <ul class="profile-social-links">
+<!--    <ul class="profile-social-links">-->
         
          <!--twitter - el clásico  -->
     <!--    <li>-->
@@ -100,7 +104,7 @@
     
     <!--</ul>-->
 
-</aside>
+<!--</aside>-->
         <style> 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -1757,7 +1761,7 @@ body{
     <div class="body"></div>
 		<div class="grad"></div>
 		<div class="header">
-			<b><div>{{User.password}}'s Homepage</div></b>
+			<b><div>{{user.username}}'s Homepage</div></b>
 		</div>
 		<br>
 		<div class = "profilepicture">
@@ -1774,8 +1778,8 @@ body{
     		<form name = "profile_blurb" action="/profilepage/addblurb/" method="post">
     		{% csrf_token %}
     		<div class="entry">
-    				<input type="text" placeholder="Blurb" name="blurb"><br><br>
-    				<input onclick="profile()" type="button" value="Add Blurb">
+    				<input type="text" placeholder="Ex: Genre of music" name="blurb"><br><br>
+    				<input onclick="profile()" type="button" value="Tell us about your group!">
     				<script>
     					function profile() {
     						document.profile_blurb.submit();
@@ -1886,14 +1890,14 @@ body{
     		    
     		    {% for event in events %}
     		    <div class = event>
-    		    <h2>Here are the scheduled events!</h2>
+    		    <h2>Here are {{event.owner}}'s scheduled events!</h2>
     		    <ul>
     		        {% if event.chosen %}
 		                <l> Event name: {{ event.event_name }}</l><br>
         		        <l> Event Description: {{ event.event_description }}</l><br>
         		        <l> Event date: {{ event.date }} </l><br>
         		        <l> Estimated price: {{ event.price }}</l><br>
-		                <l> They selectected: {{ event.chosen }} </l><br>
+		                <l> They selected: {{ event.chosen }} </l><br>
 	                {% else %}
         		        <form method="POST" action = "/displaypage/loadprofile/applyevent/">
                             {% csrf_token %}
