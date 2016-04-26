@@ -341,17 +341,14 @@ def soundcloudupload(request):
     if request.method == 'POST':
         link = request.POST.get('link')
         uid = request.session['mid']
-        
         userobj = User.objects.get(id=uid)
         
         try:
-           
             linkobj = Links.objects.get(owner=userobj)
             linkobj.link = link
             linkobj.save() 
-            
+           
         except:
-            
             new_link = description(owner = userobj, link = link)
             new_link.save() 
             
