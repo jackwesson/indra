@@ -152,6 +152,36 @@ li a:hover {
 	outline: none;
 }
 
+.container-lists{
+	height: 10px;
+	width: 300px;
+	padding: 10px;
+	z-index: 1000;
+}
+
+.container-lists input[type=submit]{
+	width: 100px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.container-lists input[type=submit]:hover{
+	opacity: 0.8;
+}
+
+.container-lists input[type=submit]:hover{
+	opacity: 0.8;
+}
+
 .loadprofilebutton{
 	position: absolute;
 	top: calc(-5%);
@@ -346,8 +376,7 @@ li a:hover {
 }
 /* Demo purposes only */
 body {
-	background-image: url(http://cdn1.theodysseyonline.com/files/2016/02/14/635910166598832636-1546290409_concert%202.jpg);
-	background-size: cover;
+	background-color: #f5ccff;
 }
 
 /*.search {*/
@@ -507,6 +536,7 @@ body {
 * html .clearfix { height: 1%; }
 .clearfix { display: block; }
 /* close commented backslash hack */
+
 </style>
 
 
@@ -596,15 +626,15 @@ body {
     {% for event in events %}
         <li>
         <figure class="snip1336">
-		  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg" alt="sample87" />
+		  <img src="http://craftycowburgers.com/wp-content/uploads/2014/03/bigstock-audio-microphone-retro-style-44570941.jpg" alt="sample87" />
 		  <figcaption>
-		    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample4.jpg" alt="profile-sample4" class="profile" />
+		    <img src="https://carriegarrettvocals.files.wordpress.com/2011/10/oasis-man-singing.jpg" alt="profile-sample5" class="profile" />
 		    <h2>{{ event.event_name }}<span>Hosted by: {{ event.owner }}</span></h2>
 		    <p> {{ event.date }}</p>
         <form method="POST" action = "loadprofile/">
             {% csrf_token %}
             <input type = "hidden" name = "artistprofile" value = {{event.owner.id}}> 
-            <input type="submit" value="Check them out!" class= 'btn' />
+            <input type="submit" value="Explore" class= 'btn' />
 		  </figcaption>
 		</figure>
         </li>
@@ -646,11 +676,11 @@ body {
 	        <!--{% endif %}-->
 	        <li>
 			<figure class="snip1336">
-			  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg" alt="sample87" />
+			  <img src="http://www.absoluteentertainment.com/sites/default/files/live-musicians-header.jpg?1371478065" alt="sample87" />
 			  <figcaption>
 				  <!--<form method="POST" action = "loadprofile/">-->
 			  	{% if artist.first_name == "entertainer" %}
-			  		<img src="http://dreamatico.com/data_images/guitar/guitar-6.jpg" alt="profile-sample4" class="profile" />
+			  		<img src="http://www.creativeteamevents.com/wp-content/uploads/2014/08/live-music.jpg" alt="profile-sample4" class="profile" />
 			  		<h2>{{ artist.username }}<span> Entertainer </span></h2>
 		      	{% else %}
 		      		<img src="http://www.delkwoodgrill.net/wp-content/uploads/2016/01/SetWidth1700-Kempinski-Hotel-Bristol-Berlin-Gastronomie-Bristol-Bar.jpg" alt="profile-sample4" class="profile" />
@@ -662,7 +692,7 @@ body {
 	            	{% csrf_token %}
 	            <!--<input type = "hidden" name = "artistprofile" value = {{ artist.id }}> -->
 		            <input type = "hidden" name = "artistprofile" value = {{artist.id}}> 
-		            <input type="submit" value="Check them out!" class= 'btn' />
+		            <input type="submit" value="Explore" class= 'btn' />
 		       </form>
 			  </figcaption>
 			</figure>
@@ -672,28 +702,3 @@ body {
   </div>
 {% endif %}
 
-
-<!--http://stackoverflow.com/questions/14728319/send-data-from-template-to-a-view-django-->
-
-<!--for doing it right-->
-<!--https://docs.djangoproject.com/en/1.9/ref/templates/builtins/-->
-
-
-
-
-
-<!--<body>-->
-<!--{% if artists %}-->
-<!--    <ul>-->
-<!--    {% for artist in artists %}-->
-<!--        <b> Artist: </b>-->
-<!--        <li>Username: {{ artist.username }}</li>-->
-<!--        <form method="POST" action = "loadprofile/">-->
-<!--            {% csrf_token %}-->
-<!--            <input type = "hidden" name = "artistprofile" value = {{artist.username}}> -->
-<!--            <input type="submit" value="Load their page!" class= 'btn' />-->
-<!--        </form>-->
-<!--    {% endfor %}-->
-
-<!--{% endif %}-->
-<!--</body>-->

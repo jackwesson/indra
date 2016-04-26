@@ -329,13 +329,38 @@ def selectapplicant(request):
     request.session['somethingdone'] = 'yes'
     return index(request)
     
-    
+    # the rest of this has yet to be implemented
 def loadartist(request):
     applicantid = request.Post['app_id']
     usera = User.objects.get(id = applicantid)
     return index(request, usera)
     
+# this is some idea code for soundcloud links
+
+def soundcloudupload(request):
+    if request.method == 'POST':
+        link = request.POST.get('link')
+        uid = request.session['mid']
+        
+        userobj = User.objects.get(id=uid)
+        
+        try:
+           
+            linkobj = Links.objects.get(owner=userobj)
+            linkobj.link = link
+            linkobj.save() 
+            
+        except:
+            
+            new_link = description(owner = userobj, link = link)
+            new_link.save() 
+            
+    request.session['somethingdone'] = 'yes'
+        
+    return index(request)
     
+
+
     
  # sourcelist = []
         # if foryou == True:
