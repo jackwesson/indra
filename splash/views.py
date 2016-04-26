@@ -42,6 +42,7 @@ def login(request):
         if user.is_active:
             django_login(request, user)
             request.session['mid'] = user.id
+            request.session['loading'] = ''
             # request.session['mid'] can be used to identify the user later
             return HttpResponseRedirect ('/profilepage/')
     else:
@@ -73,6 +74,7 @@ def register(request):
                 u.first_name = 'entertainer'
             u.save() 
             request.session['mid'] = u.id
+            request.session['loading'] = ''
             return HttpResponseRedirect ('/profilepage/')
         else:
             return render(request, 'index.html', {'errors': 'Enter a valid E-mail Address'})

@@ -3,7 +3,7 @@
 <html >
 <header>
   <figure class="profile-banner">
-    <img src="https://unsplash.it/975/300" alt="Profile banner" />
+    <img src="https://www.fest300.com/system/images/W1siZiIsIjIwMTUvMTAvMDEvMjEvNTkvMTIvNTMyL05ld19Zb3JrX1NreWxpbmUgLSAxLmpwZyJdXQ/New_York_Skyline%20-%201.jpg" alt="Profile banner" />
   </figure>
   <!--<figure class="profile-picture" -->
   <!--  style="background-image: url('http://unsplash.it/150/150')">-->
@@ -19,19 +19,19 @@
     <!--  Follow {{ user.username }}-->
     <!--</a>-->
   <!--</div>-->
-  <h1>{{ user.username }} </h1>
+  <!--<h1>{{ user.username }} </h1>-->
 </header>
   <head>
       
     <meta charset="UTF-8">
     <title>Indra</title>
-    <aside class = "profile-card">
-    <a href="">
-        {% if pic %}
-			<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">
-		{% endif %}	
-    </a>
-    </aside>
+  <!--  <aside class = "profile-card">-->
+  <!--  <a href="">-->
+  <!--      {% if pic %}-->
+		<!--	<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">-->
+		<!--{% endif %}	-->
+  <!--  </a>-->
+  <!--  </aside>-->
 <!-- this is the markup. you can change the details (your own name, your own avatar etc.) but don’t change the basic structure! -->
 
 <!--<aside class="profile-card">-->
@@ -132,11 +132,15 @@ header {
 }
 
 figure.profile-banner {
-  left:     -4%;
+  left:     -20%;
   overflow: hidden;
   position: absolute;
-  top:      -4.1%;
+  top:      -12.1%;
+  width: 800;
+  height: 250px;
+  border: 50px #000000 solid;
   z-index:  1;
+  
 }
 
 figure.profile-picture {
@@ -475,11 +479,11 @@ li a:hover {
     width: 24px;
 }
 
-
-@media screen and (min-aspect-ratio: 4/3) {
-    body {
+body {
         background-size: 100% auto;
     }
+@media screen and (min-aspect-ratio: 4/3) {
+    
     body:before {
         width: 0px;
     }
@@ -815,6 +819,7 @@ body{
 	background-image: url(http://previews.123rf.com/images/aodaodaod/aodaodaod1307/aodaodaod130701273/21097137-purple-sofa-leather-background-Stock-Photo-background-boutique.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    background-attachment:fixed;
     -webkit-filter: blur(30px);
 	z-index: -50000;
 }
@@ -834,7 +839,7 @@ body{
 
 .header{
 	position: absolute;
-	top: calc(0% + 20px);
+	top: calc(0%);
 	left: calc(0% + 70px);
 	z-index: 2;
 }
@@ -853,7 +858,7 @@ body{
 
 .entry{
 	position: absolute;
-	top: calc(25%);
+	top: calc(54%);
 	right: calc(0% + 25px);
 	height: 150px;
 	width: 350px;
@@ -940,7 +945,7 @@ body{
 }
 .propic{
 	position: absolute;
-	top: calc(45%);
+	bottom: calc(0%);
 	right: calc(0% + 25px);
 	height: 150px;
 	width: 350px;
@@ -1043,7 +1048,7 @@ body{
 .logout{
 	position: absolute;
 	top: calc(-5%);
-	right: calc(0%);
+	right: calc(10%);
 	height: 10px;
 	width: 100px;
 	padding: 10px;
@@ -1317,8 +1322,8 @@ body{
 /*switched bottome to top here*/
 .loaddisplay{
 	position: absolute;
-	top: calc(10%);
-	left: calc(0%);
+	top: calc(-5%);
+	right: calc(5%);
 	height: 150px;
 	width: 350px;
 	padding: 10px;
@@ -1419,8 +1424,8 @@ body{
 /*moved left to 50% from 5*/
 .event{
 	position: absolute;
-	bottom: calc(15%);
-	left: calc(75%);
+	bottom: calc(21%);
+	left: calc(40%);
 	height: 150px;
 	width: 350px;
 	padding: 10px;
@@ -1743,6 +1748,7 @@ body{
 	left: calc(5%);
 	width: 17px;
 	height: 22px;
+	border: 10px #000000;
 	z-index: 2;
 }
 
@@ -1761,12 +1767,13 @@ body{
     <div class="body"></div>
 		<div class="grad"></div>
 		<div class="header">
-			<b><div>{{user.username}}'s Homepage</div></b>
+			<b><div>{{user.username}}'s Homepage</div></b><br>
+			<i><div>{{blurb}}</div></i>
 		</div>
 		<br>
 		<div class = "profilepicture">
 			{% if pic %}
-				<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 3px solid grey;">
+				<img src= {{MEDIA_URL}}{{pic}} alt="prof" style = "width:170px;height:225px;border: 7px solid black;">
 			{% endif %}	
 		</div>
 		
@@ -1929,7 +1936,7 @@ body{
 		<div class="loaddisplay">
 		<form name = "loaddisplay" action="/profilepage/loaddisplay/" method="post">
 		{% csrf_token %}
-				<br> <input type="submit" value="Load Display" class= 'btn' /><br>
+				<br> <input type="submit" value="Event Feed" class= 'btn' /><br>
 		
 		</form>
 		</div>

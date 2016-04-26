@@ -22,8 +22,8 @@ from displaypage.models import connection
 
 from django.core.mail import send_mail
 
-
-def index(request, person = ''):
+# def index(request, person = ''):
+def index(request):
     try:
         if request.session['somethingdone'] == "yes":
             request.session['somethingdone'] = ''
@@ -31,7 +31,8 @@ def index(request, person = ''):
     except:
         pass
     
-    if person == '':
+    if request.session['loading'] == '':
+    # if person == '':
         user = request.user
 
         uid = request.session['mid']
@@ -74,7 +75,7 @@ def index(request, person = ''):
             yourpic = you2.profilepicture
             passing['pic'] =  yourpic
         
-        print(userobj.first_name)
+       
         
         passing['venue'] = False
         if userobj.first_name == 'venue':
@@ -118,13 +119,13 @@ def index(request, person = ''):
     
     else:
         
-        user = person
-        print ('this is the user')
-        print (user)
+        # user = person
+        # print ('this is the user')
+        # print (user)
         
-        userobj = User.objects.get(username=user)
-        print ('this is the userobj')
-        print (userobj)
+        # userobj = User.objects.get(username=user)
+        userobj = User.objects.get(id=request.session['loading'])
+        
         request.session['id2'] = userobj.id
         
         passing = {'yes': False} 
@@ -138,7 +139,7 @@ def index(request, person = ''):
             # print(x)
             allevents = list(x)
             yesevents = True
-            print ('definitely to here as well')
+            
             
             
             # except:
@@ -161,9 +162,9 @@ def index(request, person = ''):
             pass
         
         try:
-            print ('look here')
+            
             you2 = Profile.objects.get(owner=userobj)
-            print ('should see this')
+            
             pic = True
             you2 = Profile.objects.get(owner=userobj)
             pic = True
@@ -178,7 +179,7 @@ def index(request, person = ''):
             yourpic = you2.profilepicture
             passing['pic'] =  yourpic
         
-        print (passing)
+        
         return render(request, 'profile.html', passing)
     
 
@@ -201,9 +202,7 @@ def addpic(request):
         uid = request.session['mid']
         userobj = User.objects.get(id=uid)
         
-        print (userobj)
         
-        print (pic)
         try:
             obj = Profile.objects.get(owner = userobj)
             
@@ -218,7 +217,7 @@ def addpic(request):
         # obj, created = Profile.objects.update_or_create(owner=current_user,
         #                                                 defaults = {"profilepicture" : pic})
         # obj.save()
-        print (obj.owner)
+        
     # return HttpResponse('stuff happened')
         request.session['somethingdone'] = 'yes'
         return index(request)
@@ -278,12 +277,11 @@ def addevent(request):
     if request.method == "POST":
         eventname = request.POST.get('eventname')
         date = request.POST.get('eventdate')
-        print (date)
+        
         price = request.POST.get('price')
-        print ('this should be price')
-        print (price)
+        
         event_desc = request.POST.get('eventdesc')
-        print(event_desc)
+        
         uid = request.session['mid']
         userobj = User.objects.get(id = uid)
         

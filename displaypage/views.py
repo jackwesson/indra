@@ -22,10 +22,9 @@ from profilepage.models import artistevents
 
 from django.http import HttpResponse
 
-
-
 # Create your views here.
 def index(request):
+    request.session['loading'] = ''
     if request.method == "POST":
         return redirect('/displaypage')
     try:
@@ -78,9 +77,12 @@ def loadprofile(request):
         print (usera)
         usera = User.objects.get(id = usera)
         
-        print (usera)
         
-        return index2(request, usera)
+        request.session['loading'] = usera.id
+        # return index2(request, usera)
+        return index2(request)
+    if request.method == "GET":
+        return index2(request)
         
         # django templates bulletins url
 def maxlogout(request):
@@ -98,19 +100,16 @@ def search(request):
 def connect(request):
     uid = request.session['mid']
     userobj = User.objects.get(id=uid)
-    print ('this is the originator')
-    print (userobj)
     
     uid2 = request.session['id2']
     userobj2 = User.objects.get(id=uid2)
-    print ('this is the target')
-    print (userobj2)
+    
     
     new_connection = connection(target = userobj2, originator = userobj)
     new_connection.save()
     # new_connection.originator.add(userobj) 
     # new_connection.save()
-    print(new_connection.originator)
+    
     
     return redirect('/profilepage')
 
@@ -125,8 +124,9 @@ def applyevent(request):
     eventide.interested.add(userobj)
     # new_Task.collaborators.add(coll)
     eventide.save()
-    
+    request.session['loading'] = ''
     return redirect('/profilepage')
 
 def loadownprofile(request):
+    request.session['loading'] = ''
     return redirect('/profilepage')
