@@ -30,3 +30,7 @@ class artistevents(models.Model):
     price = models.CharField(max_length = 20)
     interested = models.ManyToManyField(User, related_name="applicants")
     chosen = models.ForeignKey(User, related_name="chosen", unique = False, null = True)
+
+class artistlinks(models.Model):
+    owner = models.ForeignKey(User, related_name="name_of_band", primary_key = True)
+    link = models.CharField(max_length=200)

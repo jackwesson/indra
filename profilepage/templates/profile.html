@@ -850,6 +850,95 @@ body{
 .entry input[type=button]:focus{
 	outline: none;
 }
+.links{
+	position: absolute;
+	top: calc(54%);
+	right: calc(25%);
+	height: 150px;
+	width: 350px;
+	padding: 10px;
+	z-index: 2;
+}
+
+.links input[type=text]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+}
+
+.links input[type=password]{
+	width: 250px;
+	height: 30px;
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.6);
+	border-radius: 2px;
+	color: #fff;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 4px;
+	margin-top: 10px;
+}
+
+.links input[type=button]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+.links input[type=submit]{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+}
+
+.links input[type=button]:hover{
+	opacity: 0.8;
+}
+
+.links input[type=button]:active{
+	opacity: 0.6;
+}
+
+.links input[type=text]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.links input[type=password]:focus{
+	outline: none;
+	border: 1px solid rgba(255,255,255,0.9);
+}
+
+.links input[type=button]:focus{
+	outline: none;
+}
+
+
 .propic{
 	position: absolute;
 	bottom: calc(0%);
@@ -1675,7 +1764,10 @@ body{
 		<div class="grad"></div>
 		<div class="header">
 			<b><div>{{user.username}}'s Homepage</div></b><br>
-			<i><div>{{blurb}}</div></i>
+			<i><div>{{blurb}}</div></i><br>
+			{% if link %}
+			   <div style="font-size: 15px;"><a href= {{link}} style="color: white;">{{link}}</a></div>
+			{% endif %}
 		</div>
 		<br>
 		<div class = "profilepicture">
@@ -1711,6 +1803,7 @@ body{
         		</form>
     		</div>
     		
+    		
     		{% if venue %}
     		<div class= eventform>
     		    <form name = "event_upload" action="/profilepage/addevent/" method="post" enctype="multipart/form-data">
@@ -1725,6 +1818,13 @@ body{
         		</div>
         		</form>
     		{% else %}
+    		    <div class = "links">
+            		<form name = "soundcloudupload" action="/profilepage/soundcloudupload/" method="post" enctype="multipart/form-data">
+            		{% csrf_token %}
+        				<input type="text" placeholder="Http URL of your SoundCloud" name="link"><br><br>
+           				<input type="submit" value="Upload URL" class= 'btn'><br>
+            		</form>
+        		</div>
     		    {% if booked %}
         		    <h2>Here are the events you have requested and been booked for! </h2>
                     <div class = 'bookings'>

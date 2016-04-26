@@ -17,7 +17,7 @@ from django.contrib.sessions.models import Session
 from django.http import HttpResponse
 
 from .forms import UploadPictureForm, UploadMusicForm, UploadBlurbForm, UploadEventForm
-from .models import Profile, music, description, artistevents
+from .models import Profile, music, description, artistevents, artistlinks
 from displaypage.models import connection
 
 from django.core.mail import send_mail
@@ -47,12 +47,21 @@ def index(request):
         foryou = False
         youon = False
         event = False
+        linked = False
         
         # get any descriptions
         try: 
             you = description.objects.get(owner=userobj)
             yourblurb = you.blurb
             blurb = True
+            
+        except:
+            pass
+        
+        try: 
+            artlink = artistlinks.objects.get(owner=userobj)
+            artlink = artlink.link
+            linked = True
             
         except:
             pass
@@ -69,11 +78,13 @@ def index(request):
         #     pass
         
         if blurb == True:
-            passing['blurb'] =  yourblurb
+            passing['blurb'] = yourblurb
         
         if pic == True:
             yourpic = you2.profilepicture
             passing['pic'] =  yourpic
+        if linked == True:
+            passing['link'] = artlink
         
        
         
@@ -345,12 +356,12 @@ def soundcloudupload(request):
         userobj = User.objects.get(id=uid)
         
         try:
-            linkobj = Links.objects.get(owner=userobj)
+            linkobj = artistlinks.objects.get(owner=userobj)
             linkobj.link = link
             linkobj.save() 
            
         except:
-            new_link = description(owner = userobj, link = link)
+            new_link = artistlinks(owner = userobj, link = link)
             new_link.save() 
             
     request.session['somethingdone'] = 'yes'
