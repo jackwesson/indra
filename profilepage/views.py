@@ -327,7 +327,7 @@ def selectapplicant(request):
     event.chosen = applicant
     to_email = ['yaleindramusicteam@gmail.com']
     from_email = 'yaleindramusicteam@gmail.com'
-    body = ' The venue ' + str(event.owner.username) + 'just booked and event with' + str(applicant.username)
+    body = ' The venue ' + str(event.owner.username) +  ' ' + str(event.owner.email) + '  just booked and event with' + str(applicant.username) + ' ' + str(applicant.email)
     
     send_mail('Someone just booked an event', body, from_email, to_email, fail_silently= True)
     
