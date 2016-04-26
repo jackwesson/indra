@@ -1818,13 +1818,6 @@ body{
         		</div>
         		</form>
     		{% else %}
-    		    <div class = "links">
-            		<form name = "soundcloudupload" action="/profilepage/soundcloudupload/" method="post" enctype="multipart/form-data">
-            		{% csrf_token %}
-        				<input type="text" placeholder="Http URL of your SoundCloud" name="link"><br><br>
-           				<input type="submit" value="Upload URL" class= 'btn'><br>
-            		</form>
-        		</div>
     		    {% if booked %}
         		    <h2>Here are the events you have requested and been booked for! </h2>
                     <div class = 'bookings'>
@@ -1901,10 +1894,10 @@ body{
     		<!--</form>-->
 		
     		{% if events %}
-    		    
-    		    {% for event in events %}
     		    <div class = event>
     		    <h2>Here are {{event.owner}}'s scheduled events!</h2>
+    		    {% for event in events %}
+    		    <!--<div class = event>-->
     		    <ul>
     		        {% if event.chosen %}
 		                <l> Event name: {{ event.event_name }}</l><br>
@@ -1925,8 +1918,9 @@ body{
     		        {% endif %}
         		        
     		    </ul>
-    		    </div>
+    		    
     		    {% endfor %}
+    		    </div>
     	    {% endif %}}
 	    {% endif %}
 		
