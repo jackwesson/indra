@@ -52,8 +52,8 @@ li a:hover {
 
 .logout{
 	position: absolute;
-	top: calc(-5%);
-	right: calc(0%);
+	top: calc(0%);
+	right: calc(2%);
 	height: 10px;
 	width: 100px;
 	padding: 10px;
@@ -184,7 +184,7 @@ li a:hover {
 
 .loadprofilebutton{
 	position: absolute;
-	top: calc(-5%);
+	top: calc(0%);
 	right: calc(10%);
 	height: 10px;
 	width: 100px;
@@ -531,8 +531,8 @@ body{
 }
 
 .container-lists {
-    width: 1000px;
-    margin-bottom: 100px;
+    width: 1500px;
+    margin-bottom: 10px;
 }
 .container-lists ul {
     padding: 0; /* remove default padding and all margins! */
@@ -541,7 +541,7 @@ body{
 }
 .container-lists ul li {
     width: 300px;
-    height: 500px;
+    height: 550px;
     float: left;
 }
 
@@ -658,6 +658,7 @@ body{
             {% csrf_token %}
             <input type = "hidden" name = "artistprofile" value = {{event.owner.id}}> 
             <input type="submit" value="Explore" class= 'btn' />
+        </form>
 		  </figcaption>
 		</figure>
         </li>
@@ -706,7 +707,7 @@ body{
 			  		<img src="http://www.creativeteamevents.com/wp-content/uploads/2014/08/live-music.jpg" alt="profile-sample4" class="profile" />
 			  		<h2>{{ artist.username }}<span> Entertainer </span></h2>
 		      	{% else %}
-		      		<img src="http://www.delkwoodgrill.net/wp-content/uploads/2016/01/SetWidth1700-Kempinski-Hotel-Bristol-Berlin-Gastronomie-Bristol-Bar.jpg" alt="profile-sample4" class="profile" />
+		      		<img src="http://img1.10bestmedia.com/Images/Photos/96300/melvyns-restaurant-outside-melvyns_54_990x660_201404211823.jpg" alt="profile-sample4" class="profile" />
 		      		<h2>{{ artist.username }}<span> Venue </span></h2>
 		      	{% endif %}
 
