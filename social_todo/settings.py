@@ -150,5 +150,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    "projectwebsitev1/sociastatic/CSS",
+    "projectwebsitev1/static_files/",
 ]
