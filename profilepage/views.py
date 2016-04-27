@@ -22,8 +22,9 @@ from displaypage.models import connection
 
 from django.core.mail import send_mail
 
-# def index(request, person = ''):
+# this is the code that runs when the profile page is loaded
 def index(request):
+    # this try statement checks to see if something has been changed, if so it redirects the url - this enables me to load the profile page url after calling a function
     try:
         if request.session['somethingdone'] == "yes":
             request.session['somethingdone'] = ''
@@ -31,13 +32,16 @@ def index(request):
     except:
         pass
     
+    # if index is being called through loaddisplay, 'loading' will not be nothing , if it is nothing the user owns the profile page
+    
     if request.session['loading'] == '':
-    # if person == '':
+    
         user = request.user
 
         uid = request.session['mid']
         userobj = User.objects.get(id=uid)
        
+    #   yes as true tells the html if statements to load the inputs neccesary for the owner to manipulate his profile page
         passing = {'yes': True} 
         
         passing['user'] = userobj
@@ -49,7 +53,7 @@ def index(request):
         event = False
         linked = False
         
-        # get any descriptions
+        # get anything associated with the owner of the profile page
         try: 
             you = description.objects.get(owner=userobj)
             yourblurb = you.blurb
@@ -66,7 +70,7 @@ def index(request):
         except:
             pass
         
-        # try:
+        
         try: 
             you2 = Profile.objects.get(owner=userobj)
             pic = True
@@ -74,8 +78,7 @@ def index(request):
             pass
         
             
-        # except Profile.DoesNotExist:
-        #     pass
+       
         
         if blurb == True:
             passing['blurb'] = yourblurb
@@ -87,7 +90,7 @@ def index(request):
             passing['link'] = artlink
         
        
-        
+        # check to see if the user is a venue, if so, load all events he owns and tell the html to load the event input form
         passing['venue'] = False
         if userobj.first_name == 'venue':
             passing['venue'] = True
@@ -106,6 +109,7 @@ def index(request):
             
             if yesevents == True:
                 passing['events'] = x
+        # if not a venue, load all the events applied to and selected for 
         else:
             requested = False
             booked = False
@@ -125,16 +129,12 @@ def index(request):
                 passing['booked'] = y
                 
         
-        print (passing)
+        
         return render(request, 'profile.html', passing)
     
+    # if request.session['loading'] is not empty string, load the profile associated with that id
     else:
-        
-        # user = person
-        # print ('this is the user')
-        # print (user)
-        
-        # userobj = User.objects.get(username=user)
+       
         userobj = User.objects.get(id=request.session['loading'])
         
         request.session['id2'] = userobj.id
@@ -144,26 +144,19 @@ def index(request):
         
         blurb = False
         pic = False 
+        
         try: 
-            
             x = artistevents.objects.all().filter(owner=userobj)
-            # print(x)
             allevents = list(x)
             yesevents = True
             
-            
-            
-            # except:
-            #     pass
-            # print(x.event_description)
         except:
             pass
         if yesevents == True:
                 passing['events'] = x
         
         
-        try: 
-            
+        try:
             you = description.objects.get(owner=userobj)
             
             yourblurb = you.blurb
@@ -173,17 +166,13 @@ def index(request):
             pass
         
         try:
-            
-            you2 = Profile.objects.get(owner=userobj)
-            
-            pic = True
             you2 = Profile.objects.get(owner=userobj)
             pic = True
+            
         except Profile.DoesNotExist:
             pass
         
         if blurb == True:
-        
             passing['blurb'] =  yourblurb
         
         if pic == True:
@@ -195,15 +184,9 @@ def index(request):
     
 
 
-# https://docs.djangoproject.com/en/1.9/ref/models/fields/#django.db.models.FileField
-# https://docs.djangoproject.com/en/1.9/topics/http/file-uploads/
-# http://stackoverflow.com/questions/4271686/object-has-no-attribute-save-django
 
-# https://docs.djangoproject.com/en/1.9/topics/forms/modelforms/ this links helps with uploading files from forms 
 
-# http://masteringdjango.com/user-authentication-in-django/ more user authentication tools 
-
-# http://stackoverflow.com/questions/7428245/model-form-save-get-the-saved-object this shows how to get your object from the saved form 
+# this allows you to load a profile picture for your profile page
 
 def addpic(request):
     if request.method == 'POST':
@@ -213,7 +196,7 @@ def addpic(request):
         uid = request.session['mid']
         userobj = User.objects.get(id=uid)
         
-        
+        # alter or create existing 
         try:
             obj = Profile.objects.get(owner = userobj)
             
@@ -224,48 +207,28 @@ def addpic(request):
             
             obj = Profile(owner=userobj, profilepicture = pic)
             obj.save()
-            
-        # obj, created = Profile.objects.update_or_create(owner=current_user,
-        #                                                 defaults = {"profilepicture" : pic})
-        # obj.save()
         
-    # return HttpResponse('stuff happened')
+    # set something done to yes in order to tell index to redirect
         request.session['somethingdone'] = 'yes'
         return index(request)
     
-def addmusic(request):
-    if request.method == 'POST':
-        form =UploadMusicForm(request.POST, request.FILES)
-        uid = request.session['mid']
-        if form.is_valid():
-            # file is saved
-            m = form.save()
-            m.user = User.objects.get(id=uid)
-            m.save()
     
-    form = UploadMusicForm()
-    # return HttpResponse('stuff happened')
-    return render(request, 'profile.html', {'form': form})
-    
-    
+    # this code enables you to add a blurb to your profile page
 def addblurb(request):
     if request.method == 'POST':
-        
         blurb = request.POST.get('blurb')
         uid = request.session['mid']
         
         userobj = User.objects.get(id=uid)
         
         try:
-           
             desc = description.objects.get(owner=userobj)
             desc.blurb = blurb
             desc.save() 
-            
         except:
             
             new_desc = description(owner = userobj, blurb = blurb)
-            new_desc.save() 
+            new_desc.save()
             
     request.session['somethingdone'] = 'yes'
         
@@ -273,17 +236,18 @@ def addblurb(request):
     
     
 
-
+# enables log out
 def maxlogout(request):
     pooplogout(request)
     return HttpResponseRedirect ('/')
     
-
+# redirects user to the display page with all the events and artists
 def loaddisplay(request):
     from displaypage.views import index as index2
     if request.method == "POST":
         return index2(request)
 
+# this allows the user to create events, multiple events can be created for each user
 def addevent(request):
     if request.method == "POST":
         eventname = request.POST.get('eventname')
@@ -302,15 +266,8 @@ def addevent(request):
         
         return index(request)
         
-
-def deleteconnection(request):
-    connect = request.POST['connect_id']
-    connectide = connection.objects.get(id = connect)
-    connectide.delete()
-    request.session['somethingdone'] = 'yes'
-    return index(request)
     
-
+# can be used to delete events 
 def deleteevent(request):
     event = request.POST['event_id']
     eventide = artistevents.objects.get(id = event)
@@ -318,37 +275,34 @@ def deleteevent(request):
     request.session['somethingdone'] = 'yes'
     return index(request)
     
+    
+#   each applicant to an event will be displayed, this code allows the user to select which artist they want to contract with 
 def selectapplicant(request):
     applicantid = request.POST['app_id']
     eventid = request.POST['event_id']
     applicant = User.objects.get(id = applicantid)
-    
     event = artistevents.objects.get(id=eventid)
     event.chosen = applicant
+    
+    # this code sends our email account a notice with the username and email of the venue and entertainer, we can then facilitate the proccess
     to_email = ['yaleindramusicteam@gmail.com']
     from_email = 'yaleindramusicteam@gmail.com'
     body = ' The venue ' + str(event.owner.username) +  ' ' + str(event.owner.email) + '  just booked and event with' + str(applicant.username) + ' ' + str(applicant.email)
     
     send_mail('Someone just booked an event', body, from_email, to_email, fail_silently= True)
     
+    # must remove all interested parties one at a time from the event 
     for x in event.interested.all():
         event.interested.remove(x)
     
-    
+    # save the event in its new state
     event.save()
-    
-    
+
     request.session['somethingdone'] = 'yes'
     return index(request)
     
-    # the rest of this has yet to be implemented
-def loadartist(request):
-    applicantid = request.Post['app_id']
-    usera = User.objects.get(id = applicantid)
-    return index(request, usera)
-    
-# this is some idea code for soundcloud links
 
+# this allows artsit to submit links to their soundcloud page
 def soundcloudupload(request):
     if request.method == 'POST':
         link = request.POST.get('link')
@@ -368,31 +322,32 @@ def soundcloudupload(request):
         
     return index(request)
     
-
-
     
- # sourcelist = []
-        # if foryou == True:
-        #     sourcelist = sourcelist + list(toyou)
-    
-        # if youon == True:
-            
-        #     sourcelist = sourcelist + list(fromyou)
-        # if len(sourcelist) > 0:
-        #     print('3')
-        #     passing['connects'] = sourcelist
-        
+   # this is the beginning of code that would allow a venue to click and look at the artist who applied or their event
+def loadartist(request):
+    applicantid = request.Post['app_id']
+    usera = User.objects.get(id = applicantid)
+    return index(request, usera)
 
-# if request.method == 'POST':
-        
-#         pic = request.FILES['pic']
-        
-#         current_user = request.user
-#         obj, created = Profile.objects.update_or_create(owner=current_user,
-#                                                         defaults = {"profilepicture" : pic})
-       
-               
-#         form = UploadPictureForm()
-#     # return HttpResponse('stuff happened')
-#         request.session['somethingdone'] = 'yes'
-#         return index(request)
+ # this is starter code that is unimplemented for saving music directly
+def addmusic(request):
+    if request.method == 'POST':
+        form =UploadMusicForm(request.POST, request.FILES)
+        uid = request.session['mid']
+        if form.is_valid():
+            # file is saved
+            m = form.save()
+            m.user = User.objects.get(id=uid)
+            m.save()
+    
+    form = UploadMusicForm()
+    # return HttpResponse('stuff happened')
+    return render(request, 'profile.html', {'form': form})
+
+#  connections is old code that predates our decision to use events, I am leaving it in case we decide we want more user interaction on the site
+def deleteconnection(request):
+    connect = request.POST['connect_id']
+    connectide = connection.objects.get(id = connect)
+    connectide.delete()
+    request.session['somethingdone'] = 'yes'
+    return index(request)

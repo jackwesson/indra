@@ -22,39 +22,37 @@ from profilepage.models import artistevents
 
 from django.http import HttpResponse
 
-# Create your views here.
+# this code runs when displaypage is loaded
 def index(request):
     request.session['loading'] = ''
     if request.method == "POST":
         return redirect('/displaypage')
-    try:
-        if request.session['search'] == 'venue':
-            artists = User.objects.filter(first_name = "venue")
-            context = {'artists': artists}
-            request.session['search'] = ''
-            return render(request, 'display.html', context)
-        elif request.session['search'] == 'entertainer':
-            artists = User.objects.filter(first_name = "entertainer")
-            context = {'artists': artists}
-            request.session['search'] = ''
-            return render(request, 'display.html', context)
-        # elif request.session['search'] != '':
-        #     usera =  request.session['search']
-        #     print ('1212')
-        #     artists = User.objects.get(username = usera)
-        #     print artists
-        #     context = {'artists': artists}
-        #     request.session['search'] = ''
-        #     return render(request, 'display.html', context)
-    except:
-        pass
     
+    # this code is designed to work with the search function, the search function did not make it into the MVP we posted 
+    # try:
+    #     if request.session['search'] == 'venue':
+    #         artists = User.objects.filter(first_name = "venue")
+    #         context = {'artists': artists}
+    #         request.session['search'] = ''
+    #         return render(request, 'display.html', context)
+    #     elif request.session['search'] == 'entertainer':
+    #         artists = User.objects.filter(first_name = "entertainer")
+    #         context = {'artists': artists}
+    #         request.session['search'] = ''
+    #         return render(request, 'display.html', context)
+       
+    # except:
+    #     pass
+    
+    
+    # get all the users in the Indra community
     artists = User.objects.all()
     content = artists
     context = {'artists': content}
     
+    
+    # get all the events
     try: 
-        
         events = artistevents.objects.all()
         hoop = list(events)
         
@@ -62,19 +60,16 @@ def index(request):
     except:
         pass
     
-    
-    # render can only take three inputs, if you want to pass multiple inputs you have to combine them into 1, (in this case context)
-    # print (context)
     return render(request, 'display.html', context)
         
     
-        # return render(request, 'tasks.html', {'query_results': yourtasks}, {'form': form})
         
+# this enable the user to load the page of a Indra community member they are interested in  
 def loadprofile(request):
     from profilepage.views import index as index2
     if request.method == "POST":
         usera = request.POST.get('artistprofile')
-        print (usera)
+        
         usera = User.objects.get(id = usera)
         
         
@@ -84,19 +79,32 @@ def loadprofile(request):
     if request.method == "GET":
         return index2(request)
         
-        # django templates bulletins url
+# logout function
 def maxlogout(request):
     pooplogout(request)
     return HttpResponseRedirect ('/')
 
-def search(request):
-    # if request.POST['searchtext'] != '':
-    #     request.session['search'] = request.POST['searchtext']
+# from the load profile page, the user can apply to be considered for posted events 
+def applyevent(request):
+    uid = request.session['mid']
+    userobj = User.objects.get(id=uid)
     
-    request.session['search'] = request.POST['usertype']
-    return index(request)
     
+    event = request.POST['event_id']
+    eventide = artistevents.objects.get(id = event)
+    eventide.interested.add(userobj)
+    
+    eventide.save()
+    request.session['loading'] = ''
+    return redirect('/profilepage')
 
+# allows the user to load his own profile from the display page
+def loadownprofile(request):
+    request.session['loading'] = ''
+    return redirect('/profilepage')
+    
+    
+# this is old code from before events, we are leaving it as is in case we want to allow users more ability to interact with each other
 def connect(request):
     uid = request.session['mid']
     userobj = User.objects.get(id=uid)
@@ -109,24 +117,10 @@ def connect(request):
     new_connection.save()
     # new_connection.originator.add(userobj) 
     # new_connection.save()
-    
-    
-    return redirect('/profilepage')
 
-def applyevent(request):
-    uid = request.session['mid']
-    userobj = User.objects.get(id=uid)
-    print ('this is the originator')
-    print (userobj)
+# this allows the user to search for venues or artists, the implementation did not make it into the mvp
+def search(request):
     
-    event = request.POST['event_id']
-    eventide = artistevents.objects.get(id = event)
-    eventide.interested.add(userobj)
-    # new_Task.collaborators.add(coll)
-    eventide.save()
-    request.session['loading'] = ''
-    return redirect('/profilepage')
-
-def loadownprofile(request):
-    request.session['loading'] = ''
+    request.session['search'] = request.POST['usertype']
+    return index(request)
     return redirect('/profilepage')

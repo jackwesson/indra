@@ -34,6 +34,9 @@ def login(request):
     email = request.POST.get('username', '')
     password = request.POST.get('password', '')
     
+        
+        
+        
         # The user model is a preset django model
     user = authenticate(username=email, password=password)
     if user is not None:
@@ -48,7 +51,7 @@ def login(request):
         return render(request, 'index.html', {'errors': 'Invalid Login Information'})  
       
       
-    # our register function, it returns errors in the events of bad inputs, will redirect to profile page after registering 
+    # our register functio 
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
