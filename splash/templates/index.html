@@ -1,340 +1,48 @@
-<!DOCTYPE html>
-<html >
-  <head>
-    <meta charset="UTF-8">
-    <title>Indra</title>
-    <meta property="og:image" content="http://i.imgur.com/H9BZd0r.png" />
+<html>
 
+  <style>
+    #new-chat{
 
+    }
 
+    h1{
+      color:white;
+      position: absolute;
+      top: calc(10%);
+      right: calc(55%);
+    }
 
-        <style>
-      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-      @import url(http://fonts.googleapis.com/css?family=Exo:100,200,400);
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+    #new-chat input[type=submit]{
+      position: absolute;
+    	bottom: calc(10%);
+    	right: calc(55%);
+    	width: 260px;
+    	height: 35px;
+    	background: #fff;
+    	border: 1px solid #fff;
+    	cursor: pointer;
+    	border-radius: 2px;
+    	color: #a18d6c;
+    	font-family: 'Exo', sans-serif;
+    	font-size: 16px;
+    	font-weight: 400;
+    	padding: 6px;
+    	margin-top: 10px;
+  }
+  </style>
 
-body{
-	margin: 0;
-	padding: 0;
-	background: #fff;
+  <body style="background-image: url(&quot;https://cdn.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-1-full.jpg&quot;);">
 
-	color: #fff;
-	font-family: Arial;
-	font-size: 12px;
-}
+    <h1>Welcome to Chatter!</h1>
 
-.body{
-	position: absolute;
-	top: -20px;
-	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
-	background-image: url(http://www.mysouthpointechurch.com/hp_wordpress/wp-content/uploads/2015/09/POSTCARD.jpg);
-	background-size: cover;
-	-webkit-filter: blur(0px);
-	z-index: 0;
-}
-
-.grad{
-	position: absolute;
-	top: -20px;
-	left: -20px;
-	right: -40px;
-	bottom: -40px;
-	width: auto;
-	height: auto;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.65))); /* Chrome,Safari4+ */
-	z-index: 1;
-	opacity: 0.7;
-}
-
-.header{
-	position: absolute;
-	top: calc(50% - 35px);
-	left: calc(50% - 255px);
-	z-index: 2;
-}
-
-.header div{
-	float: left;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 35px;
-	font-weight: 200;
-}
-
-.header div span{
-	color: #5379fa !important;
-}
-
-.login{
-	position: absolute;
-	top: calc(50% - 150px);
-	left: calc(50%);
-	height: 150px;
-	width: 350px;
-	padding: 10px;
-	z-index: 2;
-}
-
-.login input[type=text]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-}
-
-.login input[type=password]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-	margin-top: 10px;
-}
-
-.login input[type=button]{
-	width: 260px;
-	height: 35px;
-	background: #fff;
-	border: 1px solid #fff;
-	cursor: pointer;
-	border-radius: 2px;
-	color: #a18d6c;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 6px;
-	margin-top: 10px;
-}
-
-.login input[type=button]:hover{
-	opacity: 0.8;
-}
-
-.login input[type=button]:active{
-	opacity: 0.6;
-}
-
-.login input[type=text]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.login input[type=password]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.login input[type=button]:focus{
-	outline: none;
-}
-
-.register{
-	position: absolute;
-	top: calc(50% + 50px);
-	left: calc(50%);
-	height: 150px;
-	width: 350px;
-	padding: 10px;
-	z-index: 2;
-}
-
-.register input[type=text]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-}
-
-.register input[type=password]{
-	width: 250px;
-	height: 30px;
-	background: transparent;
-	border: 1px solid rgba(255,255,255,0.6);
-	border-radius: 2px;
-	color: #fff;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 4px;
-	margin-top: 10px;
-}
-
-.register input[type=button]{
-	width: 260px;
-	height: 35px;
-	background: #fff;
-	border: 1px solid #fff;
-	cursor: pointer;
-	border-radius: 2px;
-	color: #a18d6c;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	padding: 6px;
-	margin-top: 10px;
-}
-
-.register input[type=button]:hover{
-	opacity: 0.8;
-}
-
-.register input[type=button]:active{
-	opacity: 0.6;
-}
-
-.register input[type=text]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.register input[type=password]:focus{
-	outline: none;
-	border: 1px solid rgba(255,255,255,0.9);
-}
-
-.register input[type=button]:focus{
-	outline: none;
-}
-
-.login-error{
-	color: red;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	position: absolute;
-	top: calc(50% - 100px);
-	left: calc(50% - 175px);
-	outline: none;
-	background-color: white;
-	width: 220px;
-	text-align: center;
-	border-radius: 25px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-}
-
-.registration-error{
-	color: red;
-	font-family: 'Exo', sans-serif;
-	font-size: 16px;
-	font-weight: 400;
-	position: absolute;
-	top: calc(50% - 100px);
-	left: calc(50% - 175px);
-	outline: none;
-	background-color: white;
-	width: 220px;
-	text-align: center;
-	border-radius: 25px;
-	margin-bottom: 20px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-}
-
-::-webkit-input-placeholder{
-   color: rgba(255,255,255,0.6);
-}
-
-::-moz-input-placeholder{
-   color: rgba(255,255,255,0.6);
-}
-    </style>
-
-
-        <script src="js/prefixfree.min.js"></script>
-
-
-  </head>
-
-  <body>
-
-    <div class="body"></div>
-		<div class="grad"></div>
-		<div class="header">
-			<b><div>Indra<span>Music</span></div></b>
-		</div>
-		<br>
-		
-		<form name = "login_form" action="/login/" method="post">
-		{% csrf_token %}
-		<div class="login">
-		
-			{% if errors == 'Incorrect Login Information' %}
-			<div class="login-error">
-	    		{{errors}}
-			</div>
-			{% endif %}
-			
-				<input type="text" placeholder="Username" name="username"><br>
-				<input type="password" placeholder="Password" name="password"><br>
-				<!--<input type="submit" value="login" class= 'btn' /><br>-->
-				<input onclick="clicked()" type="button" value="Log In">
-				<script>
-					function clicked() {
-						document.login_form.submit();
-					}
-				</script>
-				
-		</div>
-		</form>
-		
-		<form name = "register_form" action="/register/" method="post">
-		{% csrf_token %}
-		<div class="register">
-			
-			{% if errors != 'Incorrect Login Information' %}
-			<div class="registration-error">
-	    		{{errors}}
-			</div>
-			{% endif %}
-			
-				<input type="text" placeholder="Username" name="username"><br><br>
-				<input type="text" placeholder="Email" name="email"><br>
-				<input type="password" placeholder="Password" name="password"><br>
-				<input type="radio" name="usertype" value="venue" checked> Venue<br>
-  				<input type="radio" name="usertype" value="entertainer"> Entertainer<br>
-				<input onclick="enter()" type="button" value="Register">
-				<script>
-					function enter() {
-						document.register_form.submit();
-					}
-				</script>
-				
-		</div>
-		</form>
-		
-
-		
-		<div class = "logo">
-			<img src="trial.png" alt="Logo" style="width:304px;height:228px;">
-		</div>
-		
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-
-
-
+    <div>
+      <h2 style="color:white">Chat</h2>
+       <form id="new-chat" action="/chat/" method="POST">
+         {% csrf_token %}
+          <input name="chat_entry" type="text"><br>
+          <input type="submit"  class="chat-submit" value = "Send Chat">
+       </form>
+    </div>
 
   </body>
 </html>
