@@ -68,7 +68,7 @@ requests==2.2.1
 sqlalchemy-migrate==0.8.2
 urllib3==1.7.1
 websockify==0.5.1
-wheel==0.24.0
+wheel==0.38.1
 wsgiref==0.1.2
 zope.interface==4.0.5
 gunicorn==19.4.5
